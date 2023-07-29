@@ -1,0 +1,13 @@
+debug/
+xray_cls/
+*.pth
+*.csv
+*.pdf
+*.docx
+.vscode/
+*.log
+mlruns/
+.vscode/
+__pycache__/
+dataset/__pycache__/
+
