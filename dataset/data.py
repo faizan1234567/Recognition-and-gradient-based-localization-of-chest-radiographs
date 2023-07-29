@@ -20,7 +20,7 @@ ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 configs_file = "configs/configs.yaml"
 
 # some common data transforms
-def get_transforms(config_file: str = configs_file, 
+def get_transforms(cfg: dict = dict(), 
                    type: str = "train"):
     """
     Add Image transfroms and data augmentation for making dataset 
@@ -35,29 +35,27 @@ def get_transforms(config_file: str = configs_file,
     ------
     data_transforms: torchvision.transforms.Compose
     """
-    with open(configs_file, 'r') as f:
-        config = yaml.safe_load(f)
     if type == "train":
         data_transforms = transforms.Compose([
-            transforms.Resize(config["Augmentation"]["resize"]),
-            transforms.RandomCrop(config["Augmentation"]["random_crop"]),
-            transforms. RandomAffine(config["Augmentation"]["random_affine"]["rotation"],
-                                    config["Augmentation"]["random_affine"]["translation"],
-                                    config["Augmentation"]["random_affine"]["scaling"],
-                                    config["Augmentation"]["random_affine"]["shear"]
+            transforms.Resize(cfg["Augmentation"]["resize"]),
+            transforms.RandomCrop(cfg["Augmentation"]["random_crop"]),
+            transforms. RandomAffine(cfg["Augmentation"]["random_affine"]["rotation"],
+                                    cfg["Augmentation"]["random_affine"]["translation"],
+                                    cfg["Augmentation"]["random_affine"]["scaling"],
+                                    cfg["Augmentation"]["random_affine"]["shear"]
             ),
-            transforms.RandomHorizontalFlip(config["Augmentation"]["horizontal_flip"]),
-            transforms.RandomVerticalFlip(config["Augmentation"]["vertical_flip"]),
+            transforms.RandomHorizontalFlip(cfg["Augmentation"]["horizontal_flip"]),
+            transforms.RandomVerticalFlip(cfg["Augmentation"]["vertical_flip"]),
             transforms.ToTensor(),
-            transforms.Normalize(mean= config["Augmentation"]["mean"],
-                                std=  config["Augmentation"]["std"]),
+            transforms.Normalize(mean= cfg["Augmentation"]["mean"],
+                                std=  cfg["Augmentation"]["std"]),
         ])
     else:
         data_transforms = transforms.Compose([
-            transforms.Resize(config["Augmentation"]["resize"]),
+            transforms.Resize(cfg["Augmentation"]["resize"]),
             transforms.ToTensor(),
-            transforms.Normalize(mean= config["Augmentation"]["mean"],
-                                std=  config["Augmentation"]["std"]),
+            transforms.Normalize(mean= cfg["Augmentation"]["mean"],
+                                std=  cfg["Augmentation"]["std"]),
         ])
     return data_transforms
 
@@ -68,7 +66,7 @@ def collate_fn(batch):
       'labels': torch.tensor([x['labels'] for x in batch])
 }
 
-def load_dataset(config_file: str = configs_file,
+def load_dataset(config_file = configs_file,
                  type: str = "train"):
     """
     Load the dataset from the computer in batches, if needed shuffle the
@@ -83,9 +81,14 @@ def load_dataset(config_file: str = configs_file,
     ------
     data_loader: torch.utils.data.DataLoader
     """
-    data_transforms = get_transforms(configs_file, type= type)
-    with open(configs_file, 'r') as f:
-        config = yaml.safe_load(f)
+    if isinstance(config_file, str):
+        with open(configs_file, 'r') as f:
+            config = yaml.safe_load(f)
+    elif isinstance(config_file, dict):
+        config = config_file
+        
+    data_transforms = get_transforms(config_file, type= type)
+
 
     xray_dataset = datasets.ImageFolder(root=config["general_configs"]["dataset path"] + "/" + type,
                                                 transform=data_transforms)

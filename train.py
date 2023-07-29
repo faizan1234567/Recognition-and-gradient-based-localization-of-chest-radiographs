@@ -246,6 +246,7 @@ if __name__ == "__main__":
     
     if args.colab:
         cfg["general_configs"]["dataset path"] = "/gdrive/MyDrive/xray_dataset"
+        cfg["DataLoader"]["num_workers"] = 2
     
     model = get_model(model_name, pretrained= True,
                       num_classes=cfg["DataLoader"]["num_classes"])
@@ -259,10 +260,10 @@ if __name__ == "__main__":
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer=optimizer, step_size=5, gamma=0.1)
 
     # training data loader
-    training_loader = load_dataset(config_file= config_file, type="train")
+    training_loader = load_dataset(config_file= cfg, type="train")
 
     #valiation data loader
-    validation_loader = load_dataset(config_file= config_file, type = 'test')
+    validation_loader = load_dataset(config_file= cfg, type = 'test')
     
     # list of training configuration to change when needed.
 
