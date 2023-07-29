@@ -65,6 +65,7 @@ def read_args():
     parser.add_argument("--save", type = str, help= "path to runs directory to save the results")
     parser.add_argument("--workers", type = int, default=8, help= "number of data loader workers")
     parser.add_argument('--model', type = str, help= "select model from: resnet18, DenseNet121, vgg16")
+    parser.add_argument('--colab', action= "store_true", help="colab training option")
     opt = parser.parse_args()
     return opt
 
@@ -242,6 +243,9 @@ if __name__ == "__main__":
         model_name = args.model
     else:
         model_name = cfg['Training']["model_name"]
+    
+    if args.colab:
+        cfg["general_configs"]["dataset path"] = "/gdrive/MyDrive/xray_dataset"
     
     model = get_model(model_name, pretrained= True,
                       num_classes=cfg["DataLoader"]["num_classes"])
