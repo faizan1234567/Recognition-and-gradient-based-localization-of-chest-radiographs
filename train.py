@@ -151,7 +151,7 @@ def train(model,
             optimizer.zero_grad()
             epoch_loss += loss
             pred = (torch.sigmoid(predictions.detach()) >= 0.5) * 1
-            iter_acc = accuracy_score(labels.detach(), pred)
+            iter_acc = accuracy_score(labels.detach().cpu(), pred.cpu())
             epoch_train_acc += iter_acc
             steps +=1
 
@@ -175,7 +175,7 @@ def train(model,
                     val_predictions = torch.squeeze(model(images))
                     val_iter_loss = criterion(val_predictions, labels.float())
                     val_pred = (torch.sigmoid(val_predictions) > 0.5) * 1
-                    val_iter_acc = accuracy_score(labels, val_pred)
+                    val_iter_acc = accuracy_score(labels.cpu(), val_pred.cpu())
                     val_loss += val_iter_loss
                     val_acc += val_iter_acc
 
