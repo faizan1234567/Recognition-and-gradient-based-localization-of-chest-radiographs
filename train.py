@@ -260,10 +260,10 @@ if __name__ == "__main__":
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer=optimizer, step_size=5, gamma=0.1)
 
     # training data loader
-    training_loader = load_dataset(config_file= cfg, type="train")
+    training_loader = load_dataset(config_file= cfg, kind="train")
 
     #valiation data loader
-    validation_loader = load_dataset(config_file= cfg, type = 'val')
+    validation_loader = load_dataset(config_file= cfg, kind = 'val')
     
     # list of training configuration to change when needed.
 
