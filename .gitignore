@@ -10,5 +10,6 @@ mlruns/
 .vscode/
 __pycache__/
 dataset/__pycache__/
+logs/
 
 
