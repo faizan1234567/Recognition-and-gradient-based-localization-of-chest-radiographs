@@ -4,7 +4,7 @@ import torch.nn as nn
 import numpy as np
 from torchvision.models import resnet18, densenet121, vgg16
 
-def create_model(architecture, num_classes = 2):
+def create_model(architecture, num_classes = 4):
     """
     create a pretrained model.
     
@@ -32,7 +32,7 @@ def create_model(architecture, num_classes = 2):
         model.classifier = nn.Linear(num_inftrs, num_classes)
     return model
 
-def get_model(name = "resnet18", pretrained = True, num_classes = 2):
+def get_model(name = "resnet18", pretrained = True, num_classes = 4):
     """
     Get state of art DenseNet model pretrained on imageNet dataset.
 
@@ -55,4 +55,6 @@ def get_model(name = "resnet18", pretrained = True, num_classes = 2):
     return model
 
 
-        
+if __name__ == "__main__":
+    model = get_model(name = 'vgg16', pretrained=True, num_classes=4)
+    print(model)

@@ -20,8 +20,8 @@ ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 configs_file = "configs/configs.yaml"
 
 # some common data transforms
-def get_transforms(cfg: dict = dict(), 
-                   type: str = "train"):
+def get_transforms(cfg: dict = {}, 
+                   kind: str = "train"):
     """
     Add Image transfroms and data augmentation for making dataset 
     diverse and robusts to realistic changes
@@ -35,7 +35,7 @@ def get_transforms(cfg: dict = dict(),
     ------
     data_transforms: torchvision.transforms.Compose
     """
-    if type == "train":
+    if kind == "train":
         data_transforms = transforms.Compose([
             transforms.Resize(cfg["Augmentation"]["resize"]),
             transforms. RandomAffine(cfg["Augmentation"]["random_affine"]["rotation"],
@@ -65,7 +65,7 @@ def collate_fn(batch):
 }
 
 def load_dataset(config_file = configs_file,
-                 type: str = "train"):
+                 kind: str = "train"):
     """
     Load the dataset from the computer in batches, if needed shuffle the
     dataset
@@ -85,10 +85,10 @@ def load_dataset(config_file = configs_file,
     elif isinstance(config_file, dict):
         config = config_file
         
-    data_transforms = get_transforms(config_file, type= type)
+    data_transforms = get_transforms(config, kind= kind)
 
 
-    xray_dataset = datasets.ImageFolder(root=config["general_configs"]["dataset path"] + "/" + type,
+    xray_dataset = datasets.ImageFolder(root=config["general_configs"]["dataset splitted"] + "/" + kind,
                                                 transform=data_transforms)
     
     dataset_loader = torch.utils.data.DataLoader(xray_dataset,
@@ -102,7 +102,7 @@ def load_dataset(config_file = configs_file,
 
 
 if __name__ == "__main__":
-    dataset = load_dataset(config_file= configs_file, type = 'val')
+    dataset = load_dataset(config_file= configs_file, kind = 'val')
     image, labels = next(iter(dataset))
     print(image.shape, labels.shape)
     print(labels)
