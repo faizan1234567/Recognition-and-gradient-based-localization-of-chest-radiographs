@@ -4,6 +4,7 @@ Load the dataset from the disk
 import torch
 import torchvision
 from torchvision import transforms, datasets
+from torch.utils.data import WeightedRandomSampler
 import yaml
 import sys
 import os
@@ -90,10 +91,15 @@ def load_dataset(config_file = configs_file,
 
     xray_dataset = datasets.ImageFolder(root=config["general_configs"]["dataset splitted"] + "/" + kind,
                                                 transform=data_transforms)
-    
+    # to handle class unbalanced
+    class_freq = torch.as_tensor(xray_dataset.targets).bincount()
+    weight = 1 / class_freq
+    samples_weight = weight[xray_dataset.targets]
+    sampler = WeightedRandomSampler(samples_weight, len(samples_weight), replacement=True)
+
     dataset_loader = torch.utils.data.DataLoader(xray_dataset,
                                              batch_size=config["DataLoader"]["batch_size"], 
-                                             shuffle=config["DataLoader"]["data_shuffle"],
+                                             sampler = sampler if kind == "train" else None,
                                              num_workers=config["DataLoader"]["num_workers"],
                                              pin_memory = True, drop_last = True,
                                              )
