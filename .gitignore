@@ -11,5 +11,5 @@ mlruns/
 __pycache__/
 dataset/__pycache__/
 logs/
-
+weights/
 
