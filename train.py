@@ -254,7 +254,7 @@ if __name__ == "__main__":
     optimizer = optim.Adam(model.parameters(), lr= lr, weight_decay= weight_decay)
 
     # get loss function
-    loss_function = nn.BCEWithLogitsLoss()
+    loss_function = nn.CrossEntropyLoss()
 
     # leanring rate schedular
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer=optimizer, step_size=5, gamma=0.1)
@@ -263,7 +263,7 @@ if __name__ == "__main__":
     training_loader = load_dataset(config_file= cfg, type="train")
 
     #valiation data loader
-    validation_loader = load_dataset(config_file= cfg, type = 'test')
+    validation_loader = load_dataset(config_file= cfg, type = 'val')
     
     # list of training configuration to change when needed.
 
