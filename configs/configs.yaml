@@ -2,7 +2,7 @@
 
 general_configs:
   dataset path: E:/xray classification/Data/chest_xray
-  split ratio: 0.2 # if needed
+  dataset splitted: E:/xray classification/COVID/splitted/data/COVID-19_Radiography_Dataset
 
 # Data augmentation options
 Augmentation:
