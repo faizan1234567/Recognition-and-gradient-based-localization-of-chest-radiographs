@@ -244,6 +244,7 @@ if __name__ == "__main__":
     else:
         model_name = cfg['Training']["model_name"]
     
+    # set paths for colab drive dataset directory
     if args.colab:
         cfg["general_configs"]["dataset path"] = "/gdrive/MyDrive/covid/data/COVID-19_Radiography_Dataset"
         cfg["DataLoader"]["num_workers"] = 2
