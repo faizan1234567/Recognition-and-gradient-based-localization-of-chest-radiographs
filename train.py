@@ -245,7 +245,7 @@ if __name__ == "__main__":
         model_name = cfg['Training']["model_name"]
     
     if args.colab:
-        cfg["general_configs"]["dataset path"] = "/gdrive/MyDrive/xray_dataset"
+        cfg["general_configs"]["dataset path"] = "/gdrive/MyDrive/covid/data/COVID-19_Radiography_Dataset"
         cfg["DataLoader"]["num_workers"] = 2
     
     model = get_model(model_name, pretrained= True,
