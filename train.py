@@ -308,7 +308,7 @@ if __name__ == "__main__":
 
     all_params = {"lr": lr,
                   "workers": workers,
-                  "batch": batch,
+                  "batch": args.batch if args.batch else None,
                   "weight_decay": weight_decay,
                   "epochs": epochs,
                   "model_name": model_name,
