@@ -14,8 +14,8 @@ def create_model(architecture, num_classes = 4):
     """
     model = architecture(weights = "IMAGENET1K_V1")
     #freeze the model
-    # for params in model.parameters():
-    #     params.requires_grad = False
+    for params in model.parameters():
+        params.requires_grad = False
         
     # customize last layer as per the need - number of classes in the dataset
     #ResNet18

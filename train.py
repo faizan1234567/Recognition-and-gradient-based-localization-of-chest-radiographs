@@ -166,7 +166,7 @@ def train(model,
         for (images, labels) in train_loop:
             images, labels = images.to(device), labels.to(device)
             predictions = model(images)
-            loss = criterion(predictions, labels.float())
+            loss = criterion(predictions, labels)
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()    
