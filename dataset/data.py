@@ -39,11 +39,6 @@ def get_transforms(cfg: dict = {},
     if kind == "train":
         data_transforms = transforms.Compose([
             transforms.Resize(cfg["Augmentation"]["resize"]),
-            transforms. RandomAffine(cfg["Augmentation"]["random_affine"]["rotation"],
-                                    cfg["Augmentation"]["random_affine"]["translation"],
-                                    cfg["Augmentation"]["random_affine"]["scaling"],
-                                    cfg["Augmentation"]["random_affine"]["shear"]
-            ),
             transforms.RandomHorizontalFlip(cfg["Augmentation"]["horizontal_flip"]),
             transforms.ToTensor(),
             transforms.Normalize(mean= cfg["Augmentation"]["mean"],
