@@ -27,7 +27,7 @@ DataLoader:
   num_workers: 4
   pin_memory: True
   data_shuffle: True
-  num_classes: 1
+  num_classes: 4
 
 Training:
   epochs: 100
