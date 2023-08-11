@@ -103,7 +103,8 @@ def load_dataset(config_file = configs_file,
 
 
 if __name__ == "__main__":
-    dataset = load_dataset(config_file= configs_file, kind = 'val')
+    dataset = load_dataset(config_file= configs_file, kind = 'train')
+    print('total images: {}'.format(len(dataset.dataset)))
     image, labels = next(iter(dataset))
     print(image.shape, labels.shape)
     print(labels)

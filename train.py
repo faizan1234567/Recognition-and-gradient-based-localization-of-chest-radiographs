@@ -19,6 +19,8 @@ from pathlib import Path
 import logging
 import yaml
 import mlflow
+import tqdm
+import csv
 # from PIL import image
 from sklearn.metrics import (accuracy_score, precision_score, 
                              recall_score, f1_score)
@@ -68,6 +70,19 @@ def read_args():
     parser.add_argument('--colab', action= "store_true", help="colab training option")
     opt = parser.parse_args()
     return opt
+
+
+# num corrects
+def get_num_correct(preds, labels):
+    """
+    get num of corrects predictions
+
+    Parameters
+    ----------
+    preds: torch.tensor
+    labels: torch.tensor
+    """
+    return preds.argmax(dim=1).eq(labels).sum().item()
 
 # calculte metrics
 def calculate_metrics(y_pred, y_true, flag = "all"):
@@ -126,74 +141,97 @@ def train(model,
                                           args.epochs, device))
     # initialize training & validation variables 
     print()
-    epoch_accs = []
-    epoch_costs = []
-    val_epoch_accs = []
-    val_epoch_costs = []
-    best_acc = 0
+    
+    valid_loss_min = np.inf
+    cols =  [
+        'epoch', 'train_loss', 'train_acc', 'valid_loss', 'valid_acc'
+    ]
+    rows = []
+
+    # train and validation set size
+    train_samples = len(train_loader.dataset)
+    val_samples = len(val_loader.dataset)
     
     
     # select training mode
     model.to(device)
-    model.train()
+    train_loop = tqdm(train_loader)
 
     # starting training.
     for epoch in range(args.epochs):
         epoch_loss = 0
-        steps = 0
-        epoch_train_acc = 0
-        for (images, labels) in train_loader:
+        train_corrects = 0
+        model.train()
+
+        for (images, labels) in train_loop:
             images, labels = images.to(device), labels.to(device)
-            predictions = torch.squeeze(model(images))
+            predictions = model(images)
             loss = criterion(predictions, labels.float())
+            optimizer.zero_grad()
             loss.backward()
             optimizer.step()    
-            optimizer.zero_grad()
-            epoch_loss += loss
-            pred = (torch.sigmoid(predictions.detach()) >= 0.5) * 1
-            iter_acc = accuracy_score(labels.detach().cpu(), pred.cpu())
-            epoch_train_acc += iter_acc
-            steps +=1
+            epoch_loss += loss.item() * labels.size(0)
+            train_corrects += get_num_correct(predictions, labels)
+
+            train_loop.set_description(f'Epoch [{epoch+1:2d}/{epochs}]')
+            train_loop.set_postfix(
+                loss=loss.item(), acc=train_corrects/train_samples
+            )
 
         # now log epoch performance 
-        avg_iters_loss = epoch_loss/steps
-        avg_iters_acc = epoch_train_acc/steps
-        epoch_costs.append(avg_iters_loss)
-        epoch_accs.append(avg_iters_acc)
+        train_loss = epoch_loss/train_samples
+        train_acc = train_corrects/train_samples
         schedular.step() 
-        print("Training: Epoch loss: {:.4f}, Epoch accuracy: {:.4f}".format(avg_iters_loss, avg_iters_acc), end = " | ")
-        log_metric("Training_accuracy", avg_iters_acc)
-        log_metric("Training_loss", avg_iters_loss)
+
+        # print("Training: Epoch loss: {:.4f}, Epoch accuracy: {:.4f}".format(avg_iters_loss, avg_iters_acc), end = " | ")
+        log_metric("Training_accuracy", train_acc)
+        log_metric("Training_loss", train_loss)
+
         # validate the model
         if epoch % val_every == 0:
             model.eval()
             val_loss = 0
-            val_acc = 0
+            val_corrects = 0
             with torch.no_grad():
                 for (images, labels) in val_loader:
                     images, labels = images.to(device), labels.to(device)
-                    val_predictions = torch.squeeze(model(images))
+                    val_predictions = model(images)
                     val_iter_loss = criterion(val_predictions, labels.float())
-                    val_pred = (torch.sigmoid(val_predictions) > 0.5) * 1
-                    val_iter_acc = accuracy_score(labels.cpu(), val_pred.cpu())
-                    val_loss += val_iter_loss
-                    val_acc += val_iter_acc
+                    
+                    val_loss += val_iter_loss.item() * labels.size(0)
+                    val_corrects += get_num_correct(predictions, labels)
 
                 # average over the epoch
-                avg_val_loss = val_loss/len(val_loader)
-                avg_val_acc = val_acc / len(val_loader)
-                val_epoch_accs.append(avg_val_acc)
-                val_epoch_costs.append(avg_val_loss)
+                avg_val_loss = val_loss/val_samples
+                avg_val_acc = val_corrects / val_samples
+                rows.append([epoch, train_loss, train_acc, avg_val_loss, avg_val_acc])
+               
                 log_metric("Validation_accuracy", avg_val_acc)
                 log_metric("Validation_loss", avg_val_loss)
-                # save the best check points
-                if avg_val_acc > best_acc:
-                    best_acc = avg_val_acc
-                    if os.path.exists(weights):
-                        torch.save(model.state_dict(), os.path.join(weights, "best.pt"))
-                        mlflow.pytorch.log_state_dict(model.state_dict(), "logs")
-                print(" Validation: Epoch loss: {:.4f}, Epoch accuracy: {:.4f}".format(avg_val_loss, avg_val_acc))
-               
+
+                # write loss and acc
+                train_loop.write(
+                f'\n\t\tAvg train loss: {train_loss:.6f}', end='\t'
+            )
+            train_loop.write(f'Avg valid loss: {avg_val_loss:.6f}\n')
+
+            # save model if validation loss has decreased
+            if avg_val_loss <= valid_loss_min:
+                train_loop.write('\t\tvalid_loss decreased', end=' ')
+                train_loop.write(f'({valid_loss_min:.6f} -> {avg_val_loss:.6f})')
+                train_loop.write('\t\tsaving model...\n')
+                torch.save(
+                    model.state_dict(),
+                    f'models/lr3e-5_{model_name}_{device}.pth'
+                )
+                valid_loss_min = avg_val_loss
+
+    # write running results for plots
+    with open(f'{runs}/{model_name}.csv', 'w') as csv_file:
+        csv_writer = csv.writer(csv_file)
+        csv_writer.writerow(cols)
+        csv_writer.writerows(rows)
+
 # run ..
 if __name__ == "__main__":
     logger.info("Initializing..")
@@ -252,13 +290,13 @@ if __name__ == "__main__":
     model = get_model(model_name, pretrained= True,
                       num_classes=cfg["DataLoader"]["num_classes"])
     # get an optimizer
-    optimizer = optim.Adam(model.parameters(), lr= lr, weight_decay= weight_decay)
+    optimizer = optim.Adam(model.parameters(), lr= lr)
 
     # get loss function
     loss_function = nn.CrossEntropyLoss()
 
     # leanring rate schedular
-    exp_lr_scheduler = lr_scheduler.StepLR(optimizer=optimizer, step_size=5, gamma=0.1)
+    exp_lr_scheduler = lr_scheduler.StepLR(optimizer=optimizer, step_size=7, gamma=0.1)
 
     # training data loader
     training_loader = load_dataset(config_file= cfg, kind="train")
@@ -275,9 +313,9 @@ if __name__ == "__main__":
                   "epochs": epochs,
                   "model_name": model_name,
                   "optimizer": "adam",
-                  "loss": "BCELossWithLogits",
-                  "num_classes": "binary",
-                  "schedular_steps": 5,
+                  "loss": "CrossEntropyLoss",
+                  "num_classes": "4",
+                  "schedular_steps": 7,
                   "schedular_gamma": 0.1,
                   "val_every": val_every
                   }
