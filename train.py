@@ -248,7 +248,7 @@ if __name__ == "__main__":
     
     # data loader batch size
     if args.batch:
-        batch = args.batch
+        cfg['DataLoader']["batch_size"] = args.batch
     else:
         batch = cfg["DataLoader"]["batch_size"]
     
