@@ -177,6 +177,7 @@ def train(model,
             train_loop.set_postfix(
                 loss=loss.item(), acc=train_corrects/train_samples
             )
+            print(f"Epoch: {epoch + 1}/{args.epochs}, loss: {loss.item()}")
 
         # now log epoch performance 
         train_loss = epoch_loss/train_samples
