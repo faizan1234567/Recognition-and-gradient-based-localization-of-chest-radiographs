@@ -110,6 +110,7 @@ def load_dataset(config_file = configs_file,
 
 
 if __name__ == "__main__":
+    #BUG: fixed 
     dataset = load_dataset(config_file= configs_file, kind = 'train', subset = True)
     print('total images: {}'.format(len(dataset.dataset)))
     image, labels = next(iter(dataset))
