@@ -101,7 +101,7 @@ def load_dataset(config_file = configs_file,
 
     dataset_loader = torch.utils.data.DataLoader(xray_dataset,
                                              batch_size=config["DataLoader"]["batch_size"], 
-                                             sampler = sampler if kind == "train" else None,
+                                             sampler = sampler if kind == "train" and subset == False else None,
                                              num_workers=config["DataLoader"]["num_workers"],
                                              pin_memory = True, drop_last = True,
                                              )
@@ -110,7 +110,7 @@ def load_dataset(config_file = configs_file,
 
 
 if __name__ == "__main__":
-    dataset = load_dataset(config_file= configs_file, kind = 'train')
+    dataset = load_dataset(config_file= configs_file, kind = 'train', subset = True)
     print('total images: {}'.format(len(dataset.dataset)))
     image, labels = next(iter(dataset))
     print(image.shape, labels.shape)
