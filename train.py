@@ -21,7 +21,6 @@ import yaml
 import mlflow
 from tqdm import tqdm
 import csv
-# from PIL import image
 from sklearn.metrics import (accuracy_score, precision_score, 
                              recall_score, f1_score)
 
