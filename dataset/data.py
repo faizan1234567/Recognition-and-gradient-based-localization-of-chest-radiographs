@@ -4,7 +4,7 @@ Load the dataset from the disk
 import torch
 import torchvision
 from torchvision import transforms, datasets
-from torch.utils.data import WeightedRandomSampler
+from torch.utils.data import WeightedRandomSampler, Subset
 import yaml
 import sys
 import os
@@ -61,7 +61,8 @@ def collate_fn(batch):
 }
 
 def load_dataset(config_file = configs_file,
-                 kind: str = "train"):
+                 kind: str = "train",
+                 subset: bool = False):
     """
     Load the dataset from the computer in batches, if needed shuffle the
     dataset
@@ -70,6 +71,7 @@ def load_dataset(config_file = configs_file,
     ----------
     config_file: str
     data_transforms: torchvision.transforms.Compose
+    subset: bool
 
     Return
     ------
@@ -91,6 +93,11 @@ def load_dataset(config_file = configs_file,
     weight = 1 / class_freq
     samples_weight = weight[xray_dataset.targets]
     sampler = WeightedRandomSampler(samples_weight, len(samples_weight), replacement=True)
+    
+    if subset:
+        subset_size = 1000 if kind == 'train' else 100
+        subset_indices = torch.randperm(len(xray_dataset))[:subset_size]
+        xray_dataset = Subset(xray_dataset, subset_indices)
 
     dataset_loader = torch.utils.data.DataLoader(xray_dataset,
                                              batch_size=config["DataLoader"]["batch_size"], 

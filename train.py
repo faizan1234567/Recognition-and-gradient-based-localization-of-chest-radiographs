@@ -67,6 +67,7 @@ def read_args():
     parser.add_argument("--workers", type = int, default=8, help= "number of data loader workers")
     parser.add_argument('--model', type = str, help= "select model from: resnet18, DenseNet121, vgg16")
     parser.add_argument('--colab', action= "store_true", help="colab training option")
+    parser.add_argument("--subset", action= "store_true", help= "whether to use subset")
     opt = parser.parse_args()
     return opt
 
@@ -210,15 +211,15 @@ def train(model,
 
                 # write loss and acc
                 train_loop.write(
-                f'\n\t\tAvg train loss: {train_loss:.6f}', end='\t'
+                f'\nAvg train loss: {train_loss:.6f}', end='\t'
             )
             train_loop.write(f'Avg valid loss: {avg_val_loss:.6f}\n')
 
             # save model if validation loss has decreased
             if avg_val_loss <= valid_loss_min:
-                train_loop.write('\t\tvalid_loss decreased', end=' ')
+                train_loop.write('valid_loss decreased', end=' ')
                 train_loop.write(f'({valid_loss_min:.6f} -> {avg_val_loss:.6f})')
-                train_loop.write('\t\tsaving model...\n')
+                train_loop.write('saving model...\n')
                 torch.save(
                     model.state_dict(),
                     f'lr3e-5_{model_name}_{device}.pth'
@@ -298,10 +299,10 @@ if __name__ == "__main__":
     exp_lr_scheduler = lr_scheduler.StepLR(optimizer=optimizer, step_size=7, gamma=0.1)
 
     # training data loader
-    training_loader = load_dataset(config_file= cfg, kind="train")
+    training_loader = load_dataset(config_file= cfg, kind="train", subset = args.subset)
 
     #valiation data loader
-    validation_loader = load_dataset(config_file= cfg, kind = 'val')
+    validation_loader = load_dataset(config_file= cfg, kind = 'val', subset = args.subset)
     
     # list of training configuration to change when needed.
 
