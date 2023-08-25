@@ -173,7 +173,7 @@ def train(model,
             optimizer.step()    
             epoch_loss += loss.item() * labels.size(0)
             train_corrects += get_num_correct(predictions, labels)
-            #TODO: correct tqdm logs
+            #TODO: correct tqdm logs, still issur persists
             train_loop.set_description(f'Epoch [{epoch+1:2d}/{epochs}]')
             train_loop.set_postfix(
                 loss=loss.item(), acc=train_corrects/train_samples
