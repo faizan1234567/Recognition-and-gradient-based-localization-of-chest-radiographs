@@ -221,7 +221,7 @@ def train(model,
                 train_loop.write('\t\tsaving model...\n')
                 torch.save(
                     model.state_dict(),
-                    f'models/lr3e-5_{model_name}_{device}.pth'
+                    f'lr3e-5_{model_name}_{device}.pth'
                 )
                 valid_loss_min = avg_val_loss
 
