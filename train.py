@@ -163,69 +163,66 @@ def train(model,
         epoch_loss = 0
         train_corrects = 0
         model.train()
+        with tqdm(train_loader, unit="batch") as tepoch:
+            for images, labels in tepoch:
+                tepoch.set_description(f'Epoch {epoch + 1}')
+                images, labels = images.to(device), labels.to(device)
+                predictions = model(images)
+                loss = criterion(predictions, labels)
+                optimizer.zero_grad()
+                loss.backward()
+                optimizer.step()    
+                epoch_loss += loss.item() * labels.size(0)
+                train_corrects += get_num_correct(predictions, labels)
+                #TODO: corrects tqdm epoch udpates...
+                train_loop.set_postfix(
+                    loss=loss.item(), acc=train_corrects/train_samples)
+                
+            # now log epoch performance 
+            train_loss = epoch_loss/train_samples
+            train_acc = train_corrects/train_samples
+            schedular.step() 
 
-        for (images, labels) in train_loop:
-            images, labels = images.to(device), labels.to(device)
-            predictions = model(images)
-            loss = criterion(predictions, labels)
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()    
-            epoch_loss += loss.item() * labels.size(0)
-            train_corrects += get_num_correct(predictions, labels)
-            #TODO: correct tqdm logs, still issur persists
-            train_loop.set_description(f'Epoch [{epoch+1:2d}/{epochs}]')
-            train_loop.set_postfix(
-                loss=loss.item(), acc=train_corrects/train_samples
-            )
-            # print(f"Epoch: {epoch + 1}/{args.epochs}, loss: {loss.item()}")
+            log_metric("Training_accuracy", train_acc)
+            log_metric("Training_loss", train_loss)
 
-        # now log epoch performance 
-        train_loss = epoch_loss/train_samples
-        train_acc = train_corrects/train_samples
-        schedular.step() 
+            # validate the model
+            if epoch % val_every == 0:
+                model.eval()
+                val_loss = 0
+                val_corrects = 0
+                with torch.no_grad():
+                    for (images, labels) in val_loader:
+                        images, labels = images.to(device), labels.to(device)
+                        val_predictions = model(images)
+                        val_iter_loss = criterion(val_predictions, labels)
+                        
+                        val_loss += val_iter_loss.item() * labels.size(0)
+                        val_corrects += get_num_correct(predictions, labels)
 
-        # print("Training: Epoch loss: {:.4f}, Epoch accuracy: {:.4f}".format(avg_iters_loss, avg_iters_acc), end = " | ")
-        log_metric("Training_accuracy", train_acc)
-        log_metric("Training_loss", train_loss)
-
-        # validate the model
-        if epoch % val_every == 0:
-            model.eval()
-            val_loss = 0
-            val_corrects = 0
-            with torch.no_grad():
-                for (images, labels) in val_loop:
-                    images, labels = images.to(device), labels.to(device)
-                    val_predictions = model(images)
-                    val_iter_loss = criterion(val_predictions, labels)
-                    
-                    val_loss += val_iter_loss.item() * labels.size(0)
-                    val_corrects += get_num_correct(predictions, labels)
-
-                # average over the epoch
-                avg_val_loss = val_loss/val_samples
-                avg_val_acc = val_corrects / val_samples
-                rows.append([epoch, train_loss, train_acc, avg_val_loss, avg_val_acc])
+                    # average over the epoch
+                    avg_val_loss = val_loss/val_samples
+                    avg_val_acc = val_corrects / val_samples
+                    rows.append([epoch, train_loss, train_acc, avg_val_loss, avg_val_acc])
                
-                log_metric("Validation_accuracy", avg_val_acc)
-                log_metric("Validation_loss", avg_val_loss)
+                    log_metric("Validation_accuracy", avg_val_acc)
+                    log_metric("Validation_loss", avg_val_loss)
 
-                # write loss and acc
-                train_loop.write(
-                f'\nAvg train loss: {train_loss:.6f}', end='\t'
-            )
-            train_loop.write(f'Avg valid loss: {avg_val_loss:.6f}\n')
-
-            # save model if validation loss has decreased
-            if avg_val_loss <= valid_loss_min:
-                train_loop.write('valid_loss decreased', end=' ')
-                train_loop.write(f'({valid_loss_min:.6f} -> {avg_val_loss:.6f})')
-                train_loop.write('saving model...\n')
-                torch.save(
-                    model.state_dict(),
-                    f'lr3e-5_{model_name}_{device}.pth'
+                    # write loss and acc
+                    tepoch.write(
+                    f'\n\t\tAvg train loss: {train_loss:.6f}', end='\t'
                 )
+                    tepoch.write(f'Avg valid loss: {avg_val_loss:.6f}\n')
+
+                # save model if validation loss has decreased
+                if avg_val_loss <= valid_loss_min:
+                    tepoch.write('valid_loss decreased', end=' ')
+                    tepoch.write(f'({valid_loss_min:.6f} -> {avg_val_loss:.6f})')
+                    tepoch.write('saving model...\n')
+                    torch.save(
+                        model.state_dict(),
+                        f'lr3e-5_{model_name}_{device}.pth'
+                    )
                 valid_loss_min = avg_val_loss
 
     # write running results for plots
