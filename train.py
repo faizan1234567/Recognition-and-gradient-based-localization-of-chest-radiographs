@@ -195,7 +195,7 @@ def train(model,
                 for (images, labels) in val_loader:
                     images, labels = images.to(device), labels.to(device)
                     val_predictions = model(images)
-                    val_iter_loss = criterion(val_predictions, labels.float())
+                    val_iter_loss = criterion(val_predictions, labels)
                     
                     val_loss += val_iter_loss.item() * labels.size(0)
                     val_corrects += get_num_correct(predictions, labels)
