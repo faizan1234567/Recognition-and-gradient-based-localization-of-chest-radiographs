@@ -156,6 +156,7 @@ def train(model,
     # select training mode
     model.to(device)
     train_loop = tqdm(train_loader)
+    val_loop = tqdm(val_loader)
 
     # starting training.
     for epoch in range(args.epochs):
@@ -172,7 +173,7 @@ def train(model,
             optimizer.step()    
             epoch_loss += loss.item() * labels.size(0)
             train_corrects += get_num_correct(predictions, labels)
-
+            #TODO: correct tqdm logs
             train_loop.set_description(f'Epoch [{epoch+1:2d}/{epochs}]')
             train_loop.set_postfix(
                 loss=loss.item(), acc=train_corrects/train_samples
@@ -194,7 +195,7 @@ def train(model,
             val_loss = 0
             val_corrects = 0
             with torch.no_grad():
-                for (images, labels) in val_loader:
+                for (images, labels) in val_loop:
                     images, labels = images.to(device), labels.to(device)
                     val_predictions = model(images)
                     val_iter_loss = criterion(val_predictions, labels)
