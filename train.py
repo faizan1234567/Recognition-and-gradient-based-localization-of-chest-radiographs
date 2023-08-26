@@ -125,7 +125,6 @@ def train(model,
     args: argparse.Namespace
     """
 
-    # train a deep leanring model on image classfication task
     # create a directory to store training runs
     logger.info("creating a runs directory to store training runs...")
     if args.save:
@@ -136,17 +135,14 @@ def train(model,
             for dir in dirs:
                 os.makedirs(dir)
     
-    #log training informations
+    #log training information
     device = "cuda" if torch.cuda.is_available() else "cpu"
     logger.info("Learning rate: {}, batch size: {}, epochs: {}, device: {}".format(args.learning_rate, args.batch, 
                                           args.epochs, device))
     # initialize training & validation variables 
     print()
-    
     valid_loss_min = np.inf
-    cols =  [
-        'epoch', 'train_loss', 'train_acc', 'valid_loss', 'valid_acc'
-    ]
+    cols =  ['epoch', 'train_loss', 'train_acc', 'valid_loss', 'valid_acc']
     rows = []
 
     # train and validation set size
@@ -162,8 +158,9 @@ def train(model,
         epoch_loss = 0
         train_corrects = 0
         model.train()
-        with tqdm(train_loader, total=len(train_loader)) as tepoch:
+        with tqdm(train_loader, unit= "batch", total=len(train_loader)) as tepoch:
             for images, labels in tepoch:
+                sleep(0.01)
                 tepoch.set_description(f'Epoch {epoch + 1}')
                 images, labels = images.to(device), labels.to(device)
                 predictions = model(images)
@@ -173,10 +170,9 @@ def train(model,
                 optimizer.step()    
                 epoch_loss += loss.item() * labels.size(0)
                 train_corrects += get_num_correct(predictions, labels)
-                #TODO: corrects tqdm epoch udpates...
+                #TODO: corrects tqdm epoch udpates... the issue still presists
                 tepoch.set_postfix(
                     loss=loss.item(), acc=train_corrects/train_samples)
-                sleep(0.01)
                 
             # now log epoch performance 
             train_loss = epoch_loss/train_samples
@@ -210,8 +206,7 @@ def train(model,
 
                     # write loss and acc
                     tepoch.write(
-                    f'\n\t\tAvg train loss: {train_loss:.6f}', end='\t'
-                )
+                    f'\n\t\tAvg train loss: {train_loss:.6f}', end='\t')
                     tepoch.write(f'Avg valid loss: {avg_val_loss:.6f}\n')
 
                 # save model if validation loss has decreased
