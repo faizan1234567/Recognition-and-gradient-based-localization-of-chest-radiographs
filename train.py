@@ -34,6 +34,7 @@ from dataset import *
 from pretrained_models import get_model
 from dataset.data import load_dataset
 from mlflow import log_metric, log_param, log_params, log_artifacts
+from time import sleep
 
 # check if the parent directory is in the path if not then append it
 ROOT = Path(__file__).resolve().parents[0]
@@ -155,8 +156,8 @@ def train(model,
     
     # select training mode
     model.to(device)
-    train_loop = tqdm(train_loader)
-    val_loop = tqdm(val_loader)
+    # train_loop = tqdm(train_loader)
+    # val_loop = tqdm(val_loader)
 
     # starting training.
     for epoch in range(args.epochs):
@@ -175,8 +176,9 @@ def train(model,
                 epoch_loss += loss.item() * labels.size(0)
                 train_corrects += get_num_correct(predictions, labels)
                 #TODO: corrects tqdm epoch udpates...
-                train_loop.set_postfix(
+                tepoch.set_postfix(
                     loss=loss.item(), acc=train_corrects/train_samples)
+                sleep(0.01)
                 
             # now log epoch performance 
             train_loss = epoch_loss/train_samples
@@ -216,9 +218,9 @@ def train(model,
 
                 # save model if validation loss has decreased
                 if avg_val_loss <= valid_loss_min:
-                    tepoch.write('valid_loss decreased', end=' ')
+                    tepoch.write('\t\tvalid_loss decreased', end=' ')
                     tepoch.write(f'({valid_loss_min:.6f} -> {avg_val_loss:.6f})')
-                    tepoch.write('saving model...\n')
+                    tepoch.write('\n\t\tsaving model...\n')
                     torch.save(
                         model.state_dict(),
                         f'lr3e-5_{model_name}_{device}.pth'
