@@ -216,14 +216,13 @@ def train(model,
 
                 # save model if validation loss has decreased
                 if avg_val_loss <= valid_loss_min:
-                    tepoch.write('\t\tvalid_loss decreased', end=' ')
-                    tepoch.write(f'({valid_loss_min:.6f} -> {avg_val_loss:.6f})')
-                    tepoch.write('\n\t\tsaving model...\n')
+                    # tepoch.write('\t\tvalid_loss decreased', end=' ')
+                    # tepoch.write(f'({valid_loss_min:.6f} -> {avg_val_loss:.6f})')
+                    # tepoch.write('\n\t\tsaving model...\n')
                     torch.save(
                         model.state_dict(),
-                        f'lr3e-5_{model_name}_{device}.pth'
-                    )
-                valid_loss_min = avg_val_loss
+                        f'lr3e-5_{model_name}_{device}.pth')
+                    valid_loss_min = avg_val_loss
 
     # write running results for plots
     with open(f'{runs}/{model_name}.csv', 'w') as csv_file:
