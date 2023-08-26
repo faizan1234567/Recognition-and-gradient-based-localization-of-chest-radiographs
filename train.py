@@ -162,7 +162,7 @@ def train(model,
         epoch_loss = 0
         train_corrects = 0
         model.train()
-        with tqdm(train_loader, unit="batch") as tepoch:
+        with tqdm(train_loader, unit="batch", total=len(train_loader)) as tepoch:
             for images, labels in tepoch:
                 tepoch.set_description(f'Epoch {epoch + 1}')
                 images, labels = images.to(device), labels.to(device)
