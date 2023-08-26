@@ -154,10 +154,8 @@ def train(model,
     val_samples = len(val_loader.dataset)
     
     
-    # select training mode
+    # push model to device
     model.to(device)
-    # train_loop = tqdm(train_loader)
-    # val_loop = tqdm(val_loader)
 
     # starting training.
     for epoch in range(args.epochs):
