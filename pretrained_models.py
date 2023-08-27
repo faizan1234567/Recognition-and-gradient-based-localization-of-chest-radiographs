@@ -28,7 +28,7 @@ def create_model(architecture, num_classes = 4, pretrained = True, custom_weight
         num_inftrs = model.classifier.in_features
         model.classifier = nn.Linear(num_inftrs, num_classes)
     if not pretrained:
-        model = model.load_state_dict(custom_weights)
+        model.load_state_dict(custom_weights)
     return model
 
 def get_model(name = "resnet18", pretrained = True, num_classes = 4, weights = None):

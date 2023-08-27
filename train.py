@@ -167,6 +167,7 @@ def train(model,
                 sleep(0.01)
                 tepoch.set_description(f'Epoch {epoch + 1}')
                 images, labels = images.to(device), labels.to(device)
+                #BUG: not enough memory.
                 predictions = model(images)
                 loss = criterion(predictions, labels)
                 optimizer.zero_grad()
@@ -196,7 +197,6 @@ def train(model,
                         images, labels = images.to(device), labels.to(device)
                         val_predictions = model(images)
                         val_iter_loss = criterion(val_predictions, labels)
-                        
                         val_loss += val_iter_loss.item() * labels.size(0)
                         val_corrects += get_num_correct(predictions, labels)
 
@@ -283,7 +283,7 @@ if __name__ == "__main__":
         cfg["general_configs"]["dataset splitted"] = "/gdrive/MyDrive/covid/data/COVID-19_Radiography_Dataset"
         cfg["DataLoader"]["num_workers"] = 2
     if args.resume:
-        model_info = torch.load(args.weights)
+        model_info = torch.load(args.weights, map_location= torch.device("cpu"))
         epoch = model_info["epoch"]
         model_sd = model_info["model_state_dict"]
         model = get_model(model_name, pretrained= False, 
@@ -291,7 +291,7 @@ if __name__ == "__main__":
                           weights = model_sd)
     else:
         epoch = 0
-        model = get_model(model_name, pretrained= not args.resume,
+        model = get_model(model_name, pretrained = not args.resume,
                         num_classes=cfg["DataLoader"]["num_classes"])
     # get an optimizer
     optimizer = optim.Adam(model.parameters(), lr= lr)
