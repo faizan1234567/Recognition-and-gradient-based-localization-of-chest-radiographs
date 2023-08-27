@@ -292,7 +292,7 @@ if __name__ == "__main__":
                           weights = model_sd)
     else:
         epoch = 0
-        model = get_model(model_name, pretrained= True,
+        model = get_model(model_name, pretrained= not args.resume,
                         num_classes=cfg["DataLoader"]["num_classes"])
     # get an optimizer
     optimizer = optim.Adam(model.parameters(), lr= lr)
