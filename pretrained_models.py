@@ -51,7 +51,7 @@ def get_model(name = "resnet18", pretrained = True, num_classes = 4):
         model = None
     return model
 
-# to run the script
+
 if __name__ == "__main__":
     model = get_model(name = 'vgg16', pretrained=True, num_classes=4)
     print(model)
