@@ -69,6 +69,7 @@ def read_args():
     parser.add_argument('--model', type = str, help= "select model from: resnet18, DenseNet121, vgg16")
     parser.add_argument('--colab', action= "store_true", help="colab training option")
     parser.add_argument("--subset", action= "store_true", help= "whether to use subset")
+    parser.add_argument("--resume", type = str, default= " ", help= "resume training")
     opt = parser.parse_args()
     return opt
 
@@ -113,6 +114,7 @@ def train(model,
           train_loader,
           val_loader,
           args,
+          current_epoch,
           val_every
           ):
     """
@@ -122,6 +124,7 @@ def train(model,
     criterion: torch.nn.BCELossWithLogits
     schedular: torch.optim.lr_schedular
     configs:str
+    current_epoch: int
     args: argparse.Namespace
     """
 
@@ -154,7 +157,7 @@ def train(model,
     model.to(device)
 
     # starting training.
-    for epoch in range(args.epochs):
+    for epoch in range(current_epoch, args.epochs):
         epoch_loss = 0
         train_corrects = 0
         model.train()
@@ -211,8 +214,10 @@ def train(model,
 
                 # save model if validation loss has decreased
                 if avg_val_loss <= valid_loss_min:
-                    torch.save(
-                        model.state_dict(),
+                    torch.save({
+                        "epoch": epoch,
+                        "model_state_dict": model.state_dict(),
+                        "val_loss": avg_val_loss},
                         f'{weights}/lr3e-5_{model_name}_{device}.pth')
                     valid_loss_min = avg_val_loss
 
@@ -276,9 +281,17 @@ if __name__ == "__main__":
     if args.colab:
         cfg["general_configs"]["dataset splitted"] = "/gdrive/MyDrive/covid/data/COVID-19_Radiography_Dataset"
         cfg["DataLoader"]["num_workers"] = 2
-    
-    model = get_model(model_name, pretrained= True,
-                      num_classes=cfg["DataLoader"]["num_classes"])
+    if args.resume:
+        model_info = torch.load(args.resume)
+        epoch = model_info["epoch"]
+        model_sd = model_info["model_state_dict"]
+        model = get_model(model_name, pretrained= False, 
+                          num_classes=cfg["DataLoader"]["num_classes"],
+                          weights = model_sd)
+    else:
+        epoch = 0
+        model = get_model(model_name, pretrained= True,
+                        num_classes=cfg["DataLoader"]["num_classes"])
     # get an optimizer
     optimizer = optim.Adam(model.parameters(), lr= lr)
 
@@ -321,6 +334,7 @@ if __name__ == "__main__":
           val_every = val_every,
           train_loader= training_loader,
           val_loader= validation_loader,
+          current_epoch= epoch,
           args= args)
     print()
     logger.info("Training finished.")
