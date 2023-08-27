@@ -213,7 +213,7 @@ def train(model,
                 if avg_val_loss <= valid_loss_min:
                     torch.save(
                         model.state_dict(),
-                        f'lr3e-5_{model_name}_{device}.pth')
+                        f'{weights}/lr3e-5_{model_name}_{device}.pth')
                     valid_loss_min = avg_val_loss
 
     # write running results for plots
