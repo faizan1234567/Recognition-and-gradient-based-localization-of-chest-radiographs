@@ -157,6 +157,7 @@ def train(model,
     for epoch in range(args.epochs):
         epoch_loss = 0
         train_corrects = 0
+        current_samples = 0
         model.train()
         with tqdm(train_loader, unit= "batch") as tepoch:
             for images, labels in tepoch:
@@ -170,9 +171,10 @@ def train(model,
                 optimizer.step()    
                 epoch_loss += loss.item() * labels.size(0)
                 train_corrects += get_num_correct(predictions, labels)
+                current_samples += labels.size(0)
                 #TODO: corrects tqdm epoch udpates... the issue still presists
                 tepoch.set_postfix(
-                    loss=loss.item(), acc=train_corrects/train_samples)
+                    loss=loss.item(), acc=train_corrects/current_samples)
                 
             # now log epoch performance 
             train_loss = epoch_loss/train_samples
