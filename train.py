@@ -19,7 +19,7 @@ from pathlib import Path
 import logging
 import yaml
 import mlflow
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 import csv
 from sklearn.metrics import (accuracy_score, precision_score, 
                              recall_score, f1_score)
