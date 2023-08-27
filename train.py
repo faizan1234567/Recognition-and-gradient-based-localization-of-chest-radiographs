@@ -174,10 +174,10 @@ def train(model,
                 loss.backward()
                 optimizer.step()    
                 epoch_loss += loss.item() * labels.size(0)
-                train_corrects += get_num_correct(predictions, labels)
-                #TODO: corrects tqdm epoch udpates... the issue still presists
+                # train_corrects += get_num_correct(predictions, labels)
+                iter_acc = get_num_correct(predictions, labels)/labels.size(0)
                 tepoch.set_postfix(
-                    loss=loss.item(), acc=train_corrects/labels.size(0))
+                    loss=loss.item(), acc=iter_acc)
                 
             # now log epoch performance 
             train_loss = epoch_loss/train_samples
