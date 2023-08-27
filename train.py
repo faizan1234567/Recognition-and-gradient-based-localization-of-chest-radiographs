@@ -71,7 +71,6 @@ def read_args():
     parser.add_argument("--subset", action= "store_true", help= "whether to use subset")
     parser.add_argument("--weights", type = str, default= " ", help= "resume training")
     parser.add_argument("--resume", action= "store_true", help="restore training")
-
     opt = parser.parse_args()
     return opt
 
