@@ -19,7 +19,7 @@ from pathlib import Path
 import logging
 import yaml
 import mlflow
-from tqdm import tqdm
+from tqdm.notebook import tqdm
 import csv
 from sklearn.metrics import (accuracy_score, precision_score, 
                              recall_score, f1_score)
@@ -158,7 +158,7 @@ def train(model,
         epoch_loss = 0
         train_corrects = 0
         model.train()
-        with tqdm(train_loader, unit= "batch", total=len(train_loader)) as tepoch:
+        with tqdm(train_loader, unit= "batch") as tepoch:
             for images, labels in tepoch:
                 sleep(0.01)
                 tepoch.set_description(f'Epoch {epoch + 1}')
