@@ -69,7 +69,9 @@ def read_args():
     parser.add_argument('--model', type = str, help= "select model from: resnet18, DenseNet121, vgg16")
     parser.add_argument('--colab', action= "store_true", help="colab training option")
     parser.add_argument("--subset", action= "store_true", help= "whether to use subset")
-    parser.add_argument("--resume", type = str, default= " ", help= "resume training")
+    parser.add_argument("--weights", type = str, default= " ", help= "resume training")
+    parser.add_argument("--resume", action= "store_true", help="restore training")
+
     opt = parser.parse_args()
     return opt
 
@@ -282,7 +284,7 @@ if __name__ == "__main__":
         cfg["general_configs"]["dataset splitted"] = "/gdrive/MyDrive/covid/data/COVID-19_Radiography_Dataset"
         cfg["DataLoader"]["num_workers"] = 2
     if args.resume:
-        model_info = torch.load(args.resume)
+        model_info = torch.load(args.weights)
         epoch = model_info["epoch"]
         model_sd = model_info["model_state_dict"]
         model = get_model(model_name, pretrained= False, 
