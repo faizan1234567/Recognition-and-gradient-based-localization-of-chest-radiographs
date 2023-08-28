@@ -162,13 +162,12 @@ def train(model,
         epoch_loss = 0
         train_corrects = 0
         model.train()
-        #TODO: prog bar is not showing in colab.
         with tqdm(train_loader, unit= "batch") as tepoch:
             for images, labels in tepoch:
                 sleep(0.01)
                 tepoch.set_description(f'Epoch {epoch + 1}')
                 images, labels = images.to(device), labels.to(device)
-                #BUG: not enough memory issue to be fixed ..
+                #BUG: not enough memory.
                 predictions = model(images)
                 loss = criterion(predictions, labels)
                 optimizer.zero_grad()

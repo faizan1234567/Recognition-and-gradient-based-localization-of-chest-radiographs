@@ -15,7 +15,7 @@ def create_model(architecture, num_classes = 4, pretrained = True, custom_weight
     model = architecture(weights = "IMAGENET1K_V1")
         
     # customize last layer as per the need - number of classes in the dataset
-    #ResNet18
+    # ResNet18
     if type(model).__name__ == "ResNet":
         num_inftrs = model.fc.in_features 
         model.fc = nn.Linear(num_inftrs, num_classes)
