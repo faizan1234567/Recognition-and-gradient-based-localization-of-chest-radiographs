@@ -94,7 +94,10 @@ def inference(batch: int = 32,
                 images, labels = images.to(device), labels.to(device)
                 val_predictions = model(images)
                 val_corrects += get_num_correct(val_predictions, labels)
-                dummy, precision, recall, f1 += calculate_metrics(val_predictions.argmax(dim=1), labels, "all")
+                dummy, p, r, f1 = calculate_metrics(val_predictions.argmax(dim=1), labels, "all")
+                precision +=p
+                recall +=r
+                f1_score += f1
                 tepoch.set_postfix(
                      acc=val_corrects/labels.size(0))
 

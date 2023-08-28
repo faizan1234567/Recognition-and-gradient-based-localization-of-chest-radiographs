@@ -199,8 +199,10 @@ def train(model,
                         val_iter_loss = criterion(val_predictions, labels)
                         val_loss += val_iter_loss.item() * labels.size(0)
                         val_corrects += get_num_correct(val_predictions, labels)
-                        _, precision, recall, f1 += calculate_metrics(val_predictions.argmax(dim=1), labels, "all")
-
+                        _, p, r, f1 = calculate_metrics(val_predictions.argmax(dim=1), labels, "all")
+                        precision += p
+                        recall += r
+                        f1_score += f1
                     # average over the epoch
                     mean_precision = precision/val_samples
                     mean_recall = recall/val_samples
