@@ -68,9 +68,9 @@ def inference(batch: int = 32,
         cfg = yaml.safe_load(file)
     
     # load the dataset
-    data_loader = load_dataset(config_file= cfg, kind = args.kind, subset= args.subset)
-
-    logger.info(f"Total samples in the dataset: {len(data_loader.dataset)}")
+    data_loader = load_dataset(config_file= cfg, kind = args.kind, subset= args.subset, )
+    total_samples = len(data_loader.dataset)
+    logger.info(f"Total samples in the dataset: {total_samples}")
 
     if args.colab:
         cfg["general_configs"]["dataset splitted"] = "/gdrive/MyDrive/covid/data/COVID-19_Radiography_Dataset"
@@ -84,16 +84,38 @@ def inference(batch: int = 32,
     model.to(device)
     model.eval()
     # run inference on the dataset.
+    val_corrects = 0
+    precision, recall, f1, _ = 0, 0, 0, 0
     with tqdm(data_loader, unit= "batch") as tepoch:
-        for (images, labels) in tepoch:
-            sleep(0.01)
-            images, labels = images.to(device), labels.to(device)
-            preds = model(images)
-            
+        sleep(0.01)
+        with torch.no_grad():
+            for (images, labels) in tepoch:
+                tepoch.set_description(f'Inference')
+                images, labels = images.to(device), labels.to(device)
+                val_predictions = model(images)
+                val_corrects += get_num_correct(val_predictions, labels)
+                _, precision, recall, f1 += calculate_metrics(val_predictions.argmax(dim=1), labels, "all")
+                tepoch.set_postfix(
+                     acc=val_corrects/labels.size(0))
 
-            
-
+            # average over the epoch
+            mean_precision = precision/total_samples
+            mean_recall = recall/total_samples
+            mean_f1 = f1/total_samples
+            avg_val_acc = val_corrects / total_samples
     
+    logger.info("Done.")
+    logger.info(f"Precision: {mean_precision}")
+    logger.info(f'Recall: {mean_recall}')
+    logger.info(f'F1 Score: {mean_f1}')
+    logger.info(f'Accuracy: {avg_val_acc}')
+
+def main():
+    args = read_args()
+    inference(args.batch, args.weights, args.model, args)
+
+if __name__ == "__main__":
+    main()
 
      
 
