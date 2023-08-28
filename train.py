@@ -99,10 +99,10 @@ def calculate_metrics(y_pred, y_true, flag = "all"):
     """
     if flag == "all":
         accuracy = accuracy_score(y_true, y_pred)
-        precision = precision_score(y_true, y_pred)
-        recall = recall_score(y_true, y_pred)
-        f1_score = f1_score(y_true, y_pred)
-        return (accuracy, precision, recall, f1_score)
+        precision = precision_score(y_true, y_pred, average="micro")
+        recall = recall_score(y_true, y_pred, average= "micro")
+        f1 = f1_score(y_true, y_pred, average="micro")
+        return (accuracy, precision, recall, f1)
     else:
         accuracy = accuracy_score(y_true, y_pred)
         return accuracy
