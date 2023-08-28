@@ -18,6 +18,7 @@ import logging
 from train import get_num_correct, calculate_metrics
 import yaml
 from tqdm import tqdm
+from time import sleep
 
 # configure logger
 logger = logging.getLogger(__name__)
@@ -67,9 +68,9 @@ def inference(batch: int = 32,
         cfg = yaml.safe_load(file)
     
     # load the dataset
-    dataset = load_dataset(config_file= cfg, kind = args.kind, subset= args.subset)
+    data_loader = load_dataset(config_file= cfg, kind = args.kind, subset= args.subset)
 
-    logger.info(f"Total samples in the dataset: {len(dataset.dataset)}")
+    logger.info(f"Total samples in the dataset: {len(data_loader.dataset)}")
 
     if args.colab:
         cfg["general_configs"]["dataset splitted"] = "/gdrive/MyDrive/covid/data/COVID-19_Radiography_Dataset"
@@ -82,8 +83,11 @@ def inference(batch: int = 32,
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model.to(device)
     model.eval()
-
-    with tqdm(train_loader, unit= "batch") as tepoch
+    # run inference on the dataset.
+    with tqdm(data_loader, unit= "batch") as tepoch:
+        for (images, labels) in tepoch:
+            sleep(0.01)
+            
 
     
 
