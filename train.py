@@ -197,7 +197,7 @@ def train(model,
                         val_predictions = model(images)
                         val_iter_loss = criterion(val_predictions, labels)
                         val_loss += val_iter_loss.item() * labels.size(0)
-                        val_corrects += get_num_correct(predictions, labels)
+                        val_corrects += get_num_correct(val_predictions, labels)
 
                     # average over the epoch
                     avg_val_loss = val_loss/val_samples
