@@ -87,6 +87,10 @@ def inference(batch: int = 32,
     with tqdm(data_loader, unit= "batch") as tepoch:
         for (images, labels) in tepoch:
             sleep(0.01)
+            images, labels = images.to(device), labels.to(device)
+            preds = model(images)
+            
+
             
 
     
