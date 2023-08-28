@@ -167,7 +167,6 @@ def train(model,
                 sleep(0.01)
                 tepoch.set_description(f'Epoch {epoch + 1}')
                 images, labels = images.to(device), labels.to(device)
-                #BUG: not enough memory.
                 predictions = model(images)
                 loss = criterion(predictions, labels)
                 optimizer.zero_grad()
