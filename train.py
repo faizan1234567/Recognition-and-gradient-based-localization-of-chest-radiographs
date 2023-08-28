@@ -281,6 +281,7 @@ if __name__ == "__main__":
     if args.colab:
         cfg["general_configs"]["dataset splitted"] = "/gdrive/MyDrive/covid/data/COVID-19_Radiography_Dataset"
         cfg["DataLoader"]["num_workers"] = 2
+        
     if args.resume:
         model_info = torch.load(args.weights, map_location= torch.device("cpu"))
         epoch = model_info["epoch"]
