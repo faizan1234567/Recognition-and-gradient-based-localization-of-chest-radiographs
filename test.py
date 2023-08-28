@@ -92,7 +92,7 @@ def inference(batch: int = 32,
     # run inference on the dataset.
     val_corrects = 0
     loader = tqdm(data_loader)
-    precision, recall, f1, dummy = 0, 0, 0, 0
+    precision, recall, f1_score, dummy = 0, 0, 0, 0
     with torch.no_grad():
         for (images, labels) in loader:
             loader.set_description(f'Inference')
@@ -104,7 +104,7 @@ def inference(batch: int = 32,
             recall +=r
             f1_score += f1
             loader.set_postfix(
-                    acc=val_corrects/labels.size(0))
+                    acc=dummy)
 
         # average over the epoch
         mean_precision = precision/total_samples
