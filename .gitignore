@@ -5,6 +5,7 @@ xray_cls/
 *.pdf
 *.docx
 .vscode/
+*.txt
 *.log
 mlruns/
 .vscode/
