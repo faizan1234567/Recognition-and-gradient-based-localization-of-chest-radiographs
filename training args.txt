@@ -1,0 +1,22 @@
+args training:
+-------------
+"args": [
+                "--epochs", "1",
+                "--learning_rate", "0.00003",
+                "--save", "/weights",
+                "--batch", "64"
+                "--workers", "4",
+                "--model", "vgg16",
+                "--subset", "--resume",
+                "--weights", "lr3e-5_vgg16_cuda_1.pth"
+            ]
+
+args test
+---------
+"args": [
+                "--batch", "32",
+                "--weights", "lr3e-5_vgg16_cuda_1.pth",
+                "--model", "vgg16",
+                "--classes", "4"
+                "--kind", "val",
+            ]

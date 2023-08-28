@@ -42,6 +42,7 @@ def read_args():
     parser.add_argument("--config", type = str, default= "configs/configs.yaml", help = "configurations file")
     parser.add_argument("--kind", type = str, help= "inference type, i.e. val, test, train..")
     parser.add_argument("--subset", action= "store_true", help= "whether to use small subset")
+    parser.add_argument("--colab", action= "store_true", help= "colab option")
     opt = parser.parse_args()
     return opt
 
@@ -61,14 +62,19 @@ def inference(batch: int = 32,
     
     """
     # load the trained model 
+    logger.info("laoding a Trained model")
+    model_info = torch.load(args.weights, map_location= torch.device("cpu"))
+    epoch = model_info["epoch"]
+    logger.info(f"Total trained epochs: {epoch}")
+    model_sd = model_info["model_state_dict"]
     model = get_model(name = model, pretrained= False,
-                      num_classes= args.classes, weights= weights)
+                      num_classes= args.classes, weights= model_sd)
     
     with open(args.config, "r") as file:
         cfg = yaml.safe_load(file)
     
     # load the dataset
-    data_loader = load_dataset(config_file= cfg, kind = args.kind, subset= args.subset, )
+    data_loader = load_dataset(config_file= cfg, kind = args.kind, subset= args.subset)
     total_samples = len(data_loader.dataset)
     logger.info(f"Total samples in the dataset: {total_samples}")
 
@@ -85,27 +91,26 @@ def inference(batch: int = 32,
     model.eval()
     # run inference on the dataset.
     val_corrects = 0
+    loader = tqdm(data_loader)
     precision, recall, f1, dummy = 0, 0, 0, 0
-    with tqdm(data_loader, unit= "batch") as tepoch:
-        sleep(0.01)
-        with torch.no_grad():
-            for (images, labels) in tepoch:
-                tepoch.set_description(f'Inference')
-                images, labels = images.to(device), labels.to(device)
-                val_predictions = model(images)
-                val_corrects += get_num_correct(val_predictions, labels)
-                dummy, p, r, f1 = calculate_metrics(val_predictions.argmax(dim=1), labels, "all")
-                precision +=p
-                recall +=r
-                f1_score += f1
-                tepoch.set_postfix(
-                     acc=val_corrects/labels.size(0))
+    with torch.no_grad():
+        for (images, labels) in loader:
+            loader.set_description(f'Inference')
+            images, labels = images.to(device), labels.to(device)
+            val_predictions = model(images)
+            val_corrects += get_num_correct(val_predictions, labels)
+            dummy, p, r, f1 = calculate_metrics(val_predictions.argmax(dim=1), labels, "all")
+            precision +=p
+            recall +=r
+            f1_score += f1
+            loader.set_postfix(
+                    acc=val_corrects/labels.size(0))
 
-            # average over the epoch
-            mean_precision = precision/total_samples
-            mean_recall = recall/total_samples
-            mean_f1 = f1/total_samples
-            avg_val_acc = val_corrects / total_samples
+        # average over the epoch
+        mean_precision = precision/total_samples
+        mean_recall = recall/total_samples
+        mean_f1 = f1/total_samples
+        avg_val_acc = val_corrects / total_samples
     
     logger.info("Done.")
     logger.info(f"Precision: {mean_precision}")
