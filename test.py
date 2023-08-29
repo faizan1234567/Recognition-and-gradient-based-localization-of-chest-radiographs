@@ -111,14 +111,14 @@ def inference(batch: int = 32,
         # average over the epoch
         mean_precision = precision/len(data_loader)
         mean_recall = recall/len(data_loader)
-        mean_f1 = f1/len(data_loader)
+        mean_f1 = f1_score/len(data_loader)
         avg_val_acc = val_corrects / len(data_loader)
     
     logger.info("Done.")
-    logger.info(f"Precision macro: {mean_precision}")
-    logger.info(f'Recall macro: {mean_recall}')
-    logger.info(f'F1 Score macro: {mean_f1}')
-    logger.info(f'Accuracy: {avg_val_acc}')
+    logger.info(f"Precision macro: {mean_precision: .3f}")
+    logger.info(f'Recall macro: {mean_recall: .3f}')
+    logger.info(f'F1 Score macro: {mean_f1: .3f}')
+    logger.info(f'Accuracy: {avg_val_acc: .3f}')
 
 def main():
     args = read_args()
