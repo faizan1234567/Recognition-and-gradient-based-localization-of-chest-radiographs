@@ -96,7 +96,7 @@ def calculate_metrics(y_pred, y_true, flag = "all", average = None):
     y_pred: torch.tensor
     y_true: torch.tensor
     flag: str
-    avearge: None
+    average: None
     """
     if flag == "all":
         accuracy = accuracy_score(y_true, y_pred)
