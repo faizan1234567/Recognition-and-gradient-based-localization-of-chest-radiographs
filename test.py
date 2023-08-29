@@ -94,7 +94,7 @@ def inference(batch: int = 32,
     loader = tqdm(data_loader)
     precision, recall, f1_score, dummy = 0, 0, 0, 0
     with torch.no_grad():
-        for i, (images, labels) in enumerate(loader):
+        for images, labels in loader:
             loader.set_description(f'Inference')
             images, labels = images.to(device), labels.to(device)
             val_predictions = model(images)
@@ -114,14 +114,14 @@ def inference(batch: int = 32,
         mean_f1 = f1_score/len(data_loader)
         avg_val_acc = val_corrects / len(data_loader)
     
-    logger.info("Done.")
+    logger.info("Evaluation Results")
     logger.info("+-----------------------+---------+")
     logger.info("| Metric                |  Value  |")
     logger.info("+-----------------------+---------+")
-    logger.info(f"| Precision macro      | {mean_precision: .3f}  |")
-    logger.info(f"| Recall macro         | {mean_recall: .3f}  |")
-    logger.info(f"| F1 Score macro       | {mean_f1: .3f}  |")
-    logger.info(f"| Accuracy             | {avg_val_acc: .3f} |")
+    logger.info(f"| Precision macro      | {mean_precision: .3f}   |")
+    logger.info(f"| Recall macro         | {mean_recall: .3f}   |")
+    logger.info(f"| F1 Score macro       | {mean_f1: .3f}   |")
+    logger.info(f"| Accuracy             | {avg_val_acc: .3f}  |")
     logger.info("+-----------------------+---------+")
 
 def main():
