@@ -109,10 +109,10 @@ def inference(batch: int = 32,
                     acc=dummy)
 
         # average over the epoch
-        mean_precision = precision/total_samples
-        mean_recall = recall/total_samples
-        mean_f1 = f1/total_samples
-        avg_val_acc = val_corrects / total_samples
+        mean_precision = precision/len(data_loader)
+        mean_recall = recall/len(data_loader)
+        mean_f1 = f1/len(data_loader)
+        avg_val_acc = val_corrects / len(data_loader)
     
     logger.info("Done.")
     logger.info(f"Precision macro: {mean_precision}")
