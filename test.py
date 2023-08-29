@@ -121,7 +121,7 @@ def inference(batch: int = 32,
     logger.info(f"| Precision macro      | {mean_precision: .3f}   |")
     logger.info(f"| Recall macro         | {mean_recall: .3f}   |")
     logger.info(f"| F1 Score macro       | {mean_f1: .3f}   |")
-    logger.info(f"| Accuracy             | {avg_val_acc: .3f}  |")
+    logger.info(f"| Accuracy             | {avg_val_acc/100: .3f}  |")
     logger.info("+-----------------------+---------+")
 
 def main():
