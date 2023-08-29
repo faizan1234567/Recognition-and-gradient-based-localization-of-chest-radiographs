@@ -88,7 +88,7 @@ def get_num_correct(preds, labels):
     return preds.argmax(dim=1).eq(labels).sum().item()
 
 # calculte metrics
-def calculate_metrics(y_pred, y_true, flag = "all"):
+def calculate_metrics(y_pred, y_true, flag = "all", average = None):
     """
     calculate metrics for the training logs
     Parameters
@@ -96,12 +96,13 @@ def calculate_metrics(y_pred, y_true, flag = "all"):
     y_pred: torch.tensor
     y_true: torch.tensor
     flag: str
+    avearge: None
     """
     if flag == "all":
         accuracy = accuracy_score(y_true, y_pred)
-        precision = precision_score(y_true, y_pred, average="micro")
-        recall = recall_score(y_true, y_pred, average= "micro")
-        f1 = f1_score(y_true, y_pred, average="micro")
+        precision = precision_score(y_true, y_pred, average=average)
+        recall = recall_score(y_true, y_pred, average= average)
+        f1 = f1_score(y_true, y_pred, average=average)
         return (accuracy, precision, recall, f1)
     else:
         accuracy = accuracy_score(y_true, y_pred)
@@ -199,7 +200,8 @@ def train(model,
                         val_iter_loss = criterion(val_predictions, labels)
                         val_loss += val_iter_loss.item() * labels.size(0)
                         val_corrects += get_num_correct(val_predictions, labels)
-                        _, p, r, f1 = calculate_metrics(val_predictions.argmax(dim=1), labels, "all")
+                        _, p, r, f1 = calculate_metrics(val_predictions.argmax(dim=1), labels, 
+                                                        "all", average= "macro")
                         precision += p
                         recall += r
                         f1_score += f1
