@@ -92,16 +92,22 @@ def inference(batch: int = 32,
     # run inference on the dataset.
     val_corrects = 0
     loader = tqdm(data_loader)
-    precision, recall, f1_score, dummy = 0, 0, 0, 0
+    zeros = torch.zeros(4, )
+    precision, recall, f1_score, dummy = zeros, zeros, zeros, zeros
     with torch.no_grad():
-        for (images, labels) in loader:
+        for i, (images, labels) in enumerate(loader):
             loader.set_description(f'Inference')
             images, labels = images.to(device), labels.to(device)
             val_predictions = model(images)
             val_corrects += get_num_correct(val_predictions, labels)
-            dummy, p, r, f1 = calculate_metrics(val_predictions.argmax(dim=1), labels, "all")
-            precision +=p
-            recall +=r
+            preds_classes = val_predictions.argmax(dim=1)
+            if i == 0:
+                zeros = torch.zeros(len(preds_classes.unique()),)
+                precision, recall, f1_score, dummy = zeros, zeros, zeros, 0
+            dummy, p, r, f1 = calculate_metrics(preds_classes, labels, 
+                                                "all", average= None)
+            precision += p
+            recall += r
             f1_score += f1
             loader.set_postfix(
                     acc=dummy)
