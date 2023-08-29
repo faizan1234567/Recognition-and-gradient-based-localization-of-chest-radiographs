@@ -115,9 +115,9 @@ def inference(batch: int = 32,
         avg_val_acc = val_corrects / total_samples
     
     logger.info("Done.")
-    logger.info(f"Precision: {mean_precision}")
-    logger.info(f'Recall: {mean_recall}')
-    logger.info(f'F1 Score: {mean_f1}')
+    logger.info(f"Precision macro: {mean_precision}")
+    logger.info(f'Recall macro: {mean_recall}')
+    logger.info(f'F1 Score macro: {mean_f1}')
     logger.info(f'Accuracy: {avg_val_acc}')
 
 def main():
