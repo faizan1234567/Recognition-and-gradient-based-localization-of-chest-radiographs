@@ -115,10 +115,14 @@ def inference(batch: int = 32,
         avg_val_acc = val_corrects / len(data_loader)
     
     logger.info("Done.")
-    logger.info(f"Precision macro: {mean_precision: .3f}")
-    logger.info(f'Recall macro: {mean_recall: .3f}')
-    logger.info(f'F1 Score macro: {mean_f1: .3f}')
-    logger.info(f'Accuracy: {avg_val_acc: .3f}')
+    logger.info("+-----------------------+---------+")
+    logger.info("| Metric                |  Value  |")
+    logger.info("+-----------------------+---------+")
+    logger.info(f"| Precision macro      | {mean_precision: .3f}  |")
+    logger.info(f"| Recall macro         | {mean_recall: .3f}  |")
+    logger.info(f"| F1 Score macro       | {mean_f1: .3f}  |")
+    logger.info(f"| Accuracy             | {avg_val_acc: .3f} |")
+    logger.info("+-----------------------+---------+")
 
 def main():
     args = read_args()
