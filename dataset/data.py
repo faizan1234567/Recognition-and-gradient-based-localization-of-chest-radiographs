@@ -61,6 +61,7 @@ def collate_fn(batch):
 }
 
 def load_dataset(config_file = configs_file,
+                 batch_size = None,
                  kind: str = "train",
                  subset: bool = False):
     """
@@ -100,7 +101,7 @@ def load_dataset(config_file = configs_file,
         xray_dataset = Subset(xray_dataset, subset_indices)
 
     dataset_loader = torch.utils.data.DataLoader(xray_dataset,
-                                             batch_size=config["DataLoader"]["batch_size"], 
+                                             batch_size=config["DataLoader"]["batch_size"] if batch_size == None else batch_size, 
                                              sampler = sampler if kind == "train" and subset == False else None,
                                              num_workers=config["DataLoader"]["num_workers"],
                                              pin_memory = True, drop_last = True,
