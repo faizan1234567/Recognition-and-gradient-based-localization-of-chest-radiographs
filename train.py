@@ -23,6 +23,7 @@ from tqdm import tqdm
 import csv
 from sklearn.metrics import (accuracy_score, precision_score, 
                              recall_score, f1_score)
+import warnings
 
 import torch
 import torch.nn as nn
@@ -40,6 +41,9 @@ from time import sleep
 ROOT = Path(__file__).resolve().parents[0]
 if str(ROOT) not in sys.path:
     sys.path.app(str(ROOT))
+
+# ignore warnings
+warnings.filterwarnings('ignore')
 
 # configuration file path
 config_file = "configs/configs.yaml"
