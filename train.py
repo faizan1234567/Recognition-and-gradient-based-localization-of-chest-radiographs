@@ -203,7 +203,7 @@ def train(model,
                         val_iter_loss = criterion(val_predictions, labels)
                         val_loss += val_iter_loss.item() * labels.size(0)
                         val_corrects += get_num_correct(val_predictions.cpu(), labels.cpu())
-                        _, p, r, f1 = calculate_metrics(val_predictions.argmax(dim=1), labels, 
+                        _, p, r, f1 = calculate_metrics(val_predictions.argmax(dim=1).cpu(), labels.cpu(), 
                                                         "all", average= "macro")
                         precision += p
                         recall += r
@@ -354,14 +354,6 @@ if __name__ == "__main__":
     logger.info("Training finished.")
     # end mlflow tracking
     mlflow.end_run()    
-    
-
-
-
-
-
-
-
 
 
 
