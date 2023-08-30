@@ -207,9 +207,9 @@ def train(model,
                         recall += r
                         f1_score += f1
                     # average over the epoch
-                    mean_precision = precision/val_samples
-                    mean_recall = recall/val_samples
-                    mean_f1 = f1/val_samples
+                    mean_precision = precision/len(val_loader)
+                    mean_recall = recall/len(val_loader)
+                    mean_f1 = f1_score/len(val_loader)
                     avg_val_loss = val_loss/val_samples
                     avg_val_acc = val_corrects / val_samples
                     rows.append([epoch, train_loss, train_acc, avg_val_loss, avg_val_acc, 
