@@ -63,6 +63,7 @@ def read_args():
     parser.add_argument("--epochs", type = int, default= 100, help = "number of iterations")
     parser.add_argument("--learning_rate", type = float, default= 1e-4, help= "learning rate value")
     parser.add_argument("--batch", type = int, default=16, help= "batch size")
+    parser.add_argument("--val_batch", type = int, default = 32, help= "validation batch size")
     parser.add_argument("--weight_decay", type = float, default=1e-5, help="value of weight decay parameter")
     parser.add_argument("--save", type = str, help= "path to runs directory to save the results")
     parser.add_argument("--workers", type = int, default=8, help= "number of data loader workers")
@@ -318,7 +319,7 @@ if __name__ == "__main__":
     training_loader = load_dataset(config_file= cfg, kind="train", subset = args.subset, batch_size = args.batch)
 
     #valiation data loader
-    validation_loader = load_dataset(config_file= cfg, kind = 'val', subset = args.subset, batch_size = args.batch)
+    validation_loader = load_dataset(config_file= cfg, kind = 'val', subset = args.subset, batch_size = args.val_batch)
     
     # list of training configuration to change when needed.
 
