@@ -195,7 +195,7 @@ def train(model,
                 val_corrects = 0
                 precision, recall, f1_score = 0, 0, 0
                 with torch.no_grad():
-                    #BUG: zero division, len(val_loader) ==0
+                    #BUG: zero division, len(val_loader) ==0, dubgging needed.
                     for (images, labels) in val_loader:
                         images, labels = images.to(device), labels.to(device)
                         val_predictions = model(images)
