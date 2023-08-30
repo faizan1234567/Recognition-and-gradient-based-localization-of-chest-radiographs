@@ -62,7 +62,7 @@ def inference(batch: int = 32,
     
     """
     # load the trained model 
-    logger.info("laoding a Trained model")
+    logger.info("loading a Trained model")
     model_info = torch.load(args.weights, map_location= torch.device("cpu"))
     epoch = model_info["epoch"]
     logger.info(f"Total trained epochs: {epoch}")
