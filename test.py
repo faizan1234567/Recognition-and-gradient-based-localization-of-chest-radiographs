@@ -126,14 +126,16 @@ def inference(batch: int = 32,
     table_headers = ["Metric", "Value"]
     table = tabulate(table_data, headers=table_headers, tablefmt="grid", numalign="right", stralign="center")
     print(table)
-    # logger.info("+-----------------------+---------+")
-    # logger.info("| Metric               |  Value   |")
-    # logger.info("+-----------------------+---------+")
-    # logger.info(f"| Precision macro      | {mean_precision: .3f}   |")
-    # logger.info(f"| Recall macro         | {mean_recall: .3f}   |")
-    # logger.info(f"| F1 Score macro       | {mean_f1: .3f}   |")
-    # logger.info(f"| Accuracy             | {accuracy: .3f}   |")
-    # logger.info("+-----------------------+---------+")
+    manual_table = False
+    if manual_table:
+        logger.info("+-----------------------+---------+")
+        logger.info("| Metric               |  Value   |")
+        logger.info("+-----------------------+---------+")
+        logger.info(f"| Precision macro      | {mean_precision: .3f}   |")
+        logger.info(f"| Recall macro         | {mean_recall: .3f}   |")
+        logger.info(f"| F1 Score macro       | {mean_f1: .3f}   |")
+        logger.info(f"| Accuracy             | {accuracy: .3f}   |")
+        logger.info("+-----------------------+---------+")
 
 def main():
     args = read_args()
