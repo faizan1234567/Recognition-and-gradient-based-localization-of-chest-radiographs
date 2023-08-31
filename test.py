@@ -114,6 +114,7 @@ def inference(batch: int = 32,
         mean_precision = precision/len(data_loader)
         mean_recall = recall/len(data_loader)
         mean_f1 = f1_score/len(data_loader)
+        accuracy = accuracy/len(data_loader)
     
     logger.info("Evaluation Results")
     logger.info("+-----------------------+---------+")
