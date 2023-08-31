@@ -93,7 +93,7 @@ def inference(batch: int = 32,
     # run inference on the dataset.
     val_corrects = 0
     loader = tqdm(data_loader)
-    precision, recall, f1_score, accs = 0, 0, 0, 0
+    precision, recall, f1_score, accuracy= 0, 0, 0, 0
     with torch.no_grad():
         for images, labels in loader:
             loader.set_description(f'Inference')
