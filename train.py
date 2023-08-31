@@ -114,6 +114,7 @@ def calculate_metrics(y_pred, y_true, flag = "all", average = None):
         return accuracy
 
 # train the machine laenring model
+#INFO: The model is overfitting on the training set.
 def train(model,
           optimizer, 
           criterion,
