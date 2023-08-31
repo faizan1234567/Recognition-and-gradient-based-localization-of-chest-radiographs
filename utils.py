@@ -42,9 +42,11 @@ if __name__ == "__main__":
     
     data_loader = load_dataset(config_file= cfg, batch_size=32, kind = "test")
     model_name = "resnet18"
+    model_info = torch.load("logs/lr3e-5_resnet18_cuda.pth", map_location=torch.device("cpu"))
+    sd = model_info["model_state_dict"]
     model = get_model(model_name, pretrained = False,
                         num_classes=cfg["DataLoader"]["num_classes"], 
-                        weights="logs/lr3e-5_resnet18_cuda.pth")
+                        weights=sd)
     preds = get_all_preds(model, data_loader)
     
     
