@@ -62,9 +62,7 @@ def get_results(confmat, classes):
 
 
 
-
-
-
+# To test utilities functions
 if __name__ == "__main__":
     config_file = "configs/configs.yaml"
     with open(config_file, 'r') as f:
