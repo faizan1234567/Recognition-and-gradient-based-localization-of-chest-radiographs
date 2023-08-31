@@ -74,7 +74,8 @@ def inference(batch: int = 32,
         cfg = yaml.safe_load(file)
     
     # load the dataset
-    data_loader = load_dataset(config_file= cfg, kind = args.kind, subset= args.subset)
+    data_loader = load_dataset(config_file= cfg, kind = args.kind, subset= args.subset, 
+                               batch_size= args.batch)
     total_samples = len(data_loader.dataset)
     logger.info(f"Total samples in the dataset: {total_samples}")
 
