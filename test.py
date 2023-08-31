@@ -19,6 +19,7 @@ from train import get_num_correct, calculate_metrics
 import yaml
 from tqdm import tqdm
 from time import sleep
+from tabulate import tabulate
 
 # configure logger
 logger = logging.getLogger(__name__)
@@ -116,15 +117,23 @@ def inference(batch: int = 32,
         mean_f1 = f1_score/len(data_loader)
         accuracy = accuracy/len(data_loader)
     
-    logger.info("Evaluation Results")
-    logger.info("+-----------------------+---------+")
-    logger.info("| Metric                |  Value  |")
-    logger.info("+-----------------------+---------+")
-    logger.info(f"| Precision macro      | {mean_precision: .3f}   |")
-    logger.info(f"| Recall macro         | {mean_recall: .3f}   |")
-    logger.info(f"| F1 Score macro       | {mean_f1: .3f}   |")
-    logger.info(f"| Accuracy             | {accuracy: .3f}  |")
-    logger.info("+-----------------------+---------+")
+    print("Evaluation Results")
+    table_data = [
+    ["Precision macro", mean_precision],
+    ["Recall macro", mean_recall],
+    ["F1 Score macro", mean_f1],
+    ["Accuracy", accuracy]]
+    table_headers = ["Metric", "Value"]
+    table = tabulate(table_data, headers=table_headers, tablefmt="grid", numalign="right", stralign="center")
+    print(table)
+    # logger.info("+-----------------------+---------+")
+    # logger.info("| Metric               |  Value   |")
+    # logger.info("+-----------------------+---------+")
+    # logger.info(f"| Precision macro      | {mean_precision: .3f}   |")
+    # logger.info(f"| Recall macro         | {mean_recall: .3f}   |")
+    # logger.info(f"| F1 Score macro       | {mean_f1: .3f}   |")
+    # logger.info(f"| Accuracy             | {accuracy: .3f}   |")
+    # logger.info("+-----------------------+---------+")
 
 def main():
     args = read_args()
