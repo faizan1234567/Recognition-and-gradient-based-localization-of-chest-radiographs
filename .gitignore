@@ -7,6 +7,7 @@ xray_cls/
 .vscode/
 *.txt
 *.log
+"training args.txt"
 mlruns/
 .vscode/
 __pycache__/
