@@ -3,7 +3,7 @@ Implementation of GradCAM with xray images
 ------------------------------------------
 
 most of the code for the script 
-is borrow from:https://github.com/priyavrat-misra/xrays-and-gradcam/blob/master/grad_cam.py
+is borrowed from:https://github.com/priyavrat-misra/xrays-and-gradcam/blob/master/grad_cam.py
 """
 
 import numpy as np
@@ -31,5 +31,29 @@ class GradCAM:
     # return cam weights
     def get_weights(self, grads):
         return np.mean(grads, axis= (1, 2))
+    
+    def __call__(self, image, label=None):
+        preds = self.model(image)
+        self.model.zero_grad()
+
+        if label is None:
+            label = preds.argmax(dim=1).item()
+
+        preds[:, label].backward()
+
+        featuremaps = self.featuremaps[-1].cpu().data.numpy()[0, :]
+        gradients = self.gradients[-1].cpu().data.numpy()[0, :]
+
+        weights = self.get_cam_weights(gradients)
+        cam = np.zeros(featuremaps.shape[1:], dtype=np.float32)
+
+        for i, w in enumerate(weights):
+            cam += w * featuremaps[i]
+
+        cam = np.maximum(cam, 0)
+        cam = cv2.resize(cam, image.shape[-2:][::-1])
+        cam = cam - np.min(cam)
+        cam = cam / np.max(cam)
+        return label, cam
 
 
