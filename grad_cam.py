@@ -26,6 +26,10 @@ class GradCAM:
 
     # store gradients 
     def store_gradients(self, module, grad_input, grad_output):
-        self.gradients.append(grad_output)
+        self.gradients.append(grad_output[0])
+    
+    # return cam weights
+    def get_weights(self, grads):
+        return np.mean(grads, axis= (1, 2))
 
 
