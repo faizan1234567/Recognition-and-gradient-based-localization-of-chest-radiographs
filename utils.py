@@ -11,8 +11,10 @@ import random
 import math
 import sklearn
 import yaml
+from PIL import Image
 from dataset.data import load_dataset
 from pretrained_models import get_model
+from dataset.data import get_transforms
 
 import torch
 
@@ -60,7 +62,10 @@ def get_results(confmat, classes):
 
     return results
 
-
+def load_img(path, cfg):
+    img = Image.open(path)
+    img = get_transforms(cfg, kind = "val")(img).unsqueeze(0)
+    return img
 
 # To test utilities functions
 if __name__ == "__main__":
@@ -68,14 +73,16 @@ if __name__ == "__main__":
     with open(config_file, 'r') as f:
         cfg = yaml.safe_load(f)
     
-    data_loader = load_dataset(config_file= cfg, batch_size=32, kind = "test")
-    model_name = "resnet18"
-    model_info = torch.load("logs/lr3e-5_resnet18_cuda.pth", map_location=torch.device("cpu"))
-    sd = model_info["model_state_dict"]
-    model = get_model(model_name, pretrained = False,
-                        num_classes=cfg["DataLoader"]["num_classes"], 
-                        weights=sd)
-    preds = get_all_preds(model, data_loader)
+    # data_loader = load_dataset(config_file= cfg, batch_size=32, kind = "test")
+    # model_name = "resnet18"
+    # model_info = torch.load("logs/lr3e-5_resnet18_cuda.pth", map_location=torch.device("cpu"))
+    # sd = model_info["model_state_dict"]
+    # model = get_model(model_name, pretrained = False,
+    #                     num_classes=cfg["DataLoader"]["num_classes"], 
+    #                     weights=sd)
+    # preds = get_all_preds(model, data_loader)
+    img = load_img("notebooks/cat.jpg", cfg)
+    print(img.shape)
 
     
     
