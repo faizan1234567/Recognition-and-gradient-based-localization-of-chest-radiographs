@@ -44,6 +44,7 @@ def read_args():
     parser.add_argument("--kind", type = str, help= "inference type, i.e. val, test, train..")
     parser.add_argument("--subset", action= "store_true", help= "whether to use small subset")
     parser.add_argument("--colab", action= "store_true", help= "colab option")
+    parser.add_argument("--manual_table", action="store_true", help="log manual table")
     opt = parser.parse_args()
     return opt
 
@@ -117,17 +118,9 @@ def inference(batch: int = 32,
         mean_f1 = f1_score/len(data_loader)
         accuracy = accuracy/len(data_loader)
     
-    print("Evaluation Results")
-    table_data = [
-    ["Precision macro", mean_precision],
-    ["Recall macro", mean_recall],
-    ["F1 Score macro", mean_f1],
-    ["Accuracy", accuracy]]
-    table_headers = ["Metric", "Value"]
-    table = tabulate(table_data, headers=table_headers, tablefmt="grid", numalign="right", stralign="center")
-    print(table)
     manual_table = False
-    if manual_table:
+    if args.manual_table:
+        logger.info("Evaluation Results")
         logger.info("+-----------------------+---------+")
         logger.info("| Metric               |  Value   |")
         logger.info("+-----------------------+---------+")
@@ -136,6 +129,16 @@ def inference(batch: int = 32,
         logger.info(f"| F1 Score macro       | {mean_f1: .3f}   |")
         logger.info(f"| Accuracy             | {accuracy: .3f}   |")
         logger.info("+-----------------------+---------+")
+    else:
+        print("Evaluation Results")
+        table_data = [
+        ["Precision macro", mean_precision],
+        ["Recall macro", mean_recall],
+        ["F1 Score macro", mean_f1],
+        ["Accuracy", accuracy]]
+        table_headers = ["Metric", "Value"]
+        table = tabulate(table_data, headers=table_headers, tablefmt="grid", numalign="right", stralign="center")
+        print(table)
 
 def main():
     args = read_args()
