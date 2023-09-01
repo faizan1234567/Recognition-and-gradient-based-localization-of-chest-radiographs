@@ -67,6 +67,21 @@ def load_img(path, cfg):
     img = get_transforms(cfg, kind = "val")(img).unsqueeze(0)
     return img
 
+
+def unnormaliz_img(img):
+    image = img.cpu().numpy()
+    image = np.squeeze(np.transpose(image[0], (1, 2, 0)))
+    image = image * np.array((0.229, 0.224, 0.225)) + \
+        np.array((0.485, 0.456, 0.406))  # un-normalize
+    image = image.clip(0, 1)
+    return image
+
+def save_img(image, path):
+    image = image[:, :, ::-1]  # RGB -> BGR
+    image = Image.fromarray(image)
+    image.save(path)  # saved as RGB
+    print(f'GradCAM masked image saved to "{path}".')
+
 # To test utilities functions
 if __name__ == "__main__":
     config_file = "configs/configs.yaml"
