@@ -15,6 +15,7 @@ from PIL import Image
 from dataset.data import load_dataset
 from pretrained_models import get_model
 from dataset.data import get_transforms
+import pandas as pd
 
 import torch
 
@@ -82,6 +83,19 @@ def save_img(image, path):
     image.save(path)  # saved as RGB
     print(f'GradCAM masked image saved to "{path}".')
 
+def plot_results(file):
+    data = pd.read_csv(file)
+    filename = file.split("/")[-1][:-4]
+
+    plt.style.use("seaborn-whitegrid")
+    fig, axes = plt.subplots(nrows=1, ncols=2, figsize = (14,  4))
+    labels = [["Train loss", "Valid loss"], ["Train accuracy", "Valid accuracy"]]
+    
+
+
+
+
+
 # To test utilities functions
 if __name__ == "__main__":
     config_file = "configs/configs.yaml"
@@ -98,7 +112,3 @@ if __name__ == "__main__":
     # preds = get_all_preds(model, data_loader)
     img = load_img("notebooks/cat.jpg", cfg)
     print(img.shape)
-
-    
-    
-    
