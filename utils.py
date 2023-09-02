@@ -88,8 +88,21 @@ def plot_results(file):
     filename = file.split("/")[-1][:-4]
 
     plt.style.use("seaborn-whitegrid")
-    fig, axes = plt.subplots(nrows=1, ncols=2, figsize = (14,  4))
-    labels = [["Train loss", "Valid loss"], ["Train accuracy", "Valid accuracy"]]
+    fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize = (14,  4))
+    
+    # plot train and validation loss
+    ax1.plot(data["epoch"], data["train_loss"], label = "Train loss")
+    ax1.plot(data["epoch"], data["valid_loss"], label = "Valid loss")
+
+    ax1.axhline(data["valid_loss"].min(),
+                linestyle= (0, (5, 10)), linewidth = 0.5)
+    ax1.axvline(data["valid_loss"].idxmin(), 
+                linestyle = (0, (5, 10)), linewidth = 0.5)
+    ax1.text(11, data['valid_loss'].min(), 'min valid loss',
+             backgroundcolor='white', va='center', size=7.5)
+    
+
+    
     
 
 
