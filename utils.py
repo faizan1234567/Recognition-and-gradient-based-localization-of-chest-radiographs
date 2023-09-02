@@ -101,6 +101,26 @@ def plot_results(file):
     ax1.text(11, data['valid_loss'].min(), 'min valid loss',
              backgroundcolor='white', va='center', size=7.5)
     
+    ax2.plot(data['epoch'], data['train_acc'], label='Train Accuracy')
+    ax2.plot(data['epoch'], data['valid_acc'], label='Valid Accuracy')
+
+    ax1.legend()
+    ax1.set_title('Running Loss', fontweight='bold')
+    ax1.set_xlabel('Epochs')
+    ax1.set_ylabel('Loss')
+    ax1.grid(True)
+
+    ax2.legend()
+    ax2.set_title('Running Accuracy', fontweight='bold')
+    ax2.set_xlabel('Epochs')
+    ax2.set_ylabel('Accuracy')
+    ax2.grid(True)
+
+    plt.tight_layout()
+    fig.savefig(f'logs/Runs/{filename}.png')
+    plt.show()
+    plt.close()
+    
 
     
     
