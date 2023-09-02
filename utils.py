@@ -3,6 +3,8 @@ Utils functions
 ---------------
 
 chest x ray recognition
+Some of the plot utils have been borrowd 
+from: https://github.com/priyavrat-misra/xrays-and-gradcam/blob/master/plot_utils.py
 """
 import numpy as np
 import matplotlib.pyplot as plt
@@ -16,6 +18,7 @@ from dataset.data import load_dataset
 from pretrained_models import get_model
 from dataset.data import get_transforms
 import pandas as pd
+import cv2
 
 import torch
 
@@ -120,15 +123,68 @@ def plot_results(file):
     fig.savefig(f'logs/Runs/{filename}.png')
     plt.show()
     plt.close()
+
+def plot_confmat(train_mat, test_mat, classes, filename):
+    train_mat = pd.DataFrame(train_mat.numpy(), index=classes, columns=classes)
+    test_mat = pd.DataFrame(test_mat.numpy(), index=classes, columns=classes)
+
+    plt.style.use('seaborn-whitegrid')
+    fig = plt.figure(figsize=(16, 6))
+
+    ax = fig.add_subplot(121)
+    ax = sns.heatmap(train_mat, annot=True, cmap='tab20c',
+                    fmt='d', annot_kws={'size': 18})
+    ax.set_title('Confusion Matrix (Train Set)', fontweight='bold')
+    ax.set_xlabel('Predicted Classes', fontweight='bold')
+    ax.set_ylabel('Actual Classes', fontweight='bold')
+
+    ax = fig.add_subplot(122)
+    ax = sns.heatmap(test_mat, annot=True, cmap='tab20c',
+                    fmt='d', annot_kws={'size': 18})
+    ax.set_title('Confusion Matrix (Test Set)', fontweight='bold')
+    ax.set_xlabel('Predicted Classes', fontweight='bold')
+    ax.set_ylabel('Actual Classes', fontweight='bold')
+
+    plt.tight_layout()
+    fig.savefig(f'outputs/confusion_matrices/{filename}')
+    plt.show()
+    plt.close()
+
+def apply_mask(image, mask):
+    heatmap = cv2.applyColorMap(np.uint8(255 * mask), cv2.COLORMAP_JET)
+    heatmap = np.float32(heatmap) / 255
+    cam = heatmap + np.float32(image)
+    cam = cam / np.max(cam)
+    return np.uint8(255 * cam)
+
+
+def plot_gradcam(image, vgg_cam, res_cam, dense_cam):
+    image = unnormaliz_img(image)
+    name_dict = {
+        'Original Image': image,
+        'GradCAM (VGG-16)': apply_mask(image, vgg_cam),
+        'GradCAM (ResNet-18)': apply_mask(image, res_cam),
+        'GradCAM (DenseNet-121)': apply_mask(image, dense_cam)
+    }
+
+    plt.style.use('seaborn-notebook')
+    fig = plt.figure(figsize=(20, 4))
+    for i, (name, img) in enumerate(name_dict.items()):
+        ax = fig.add_subplot(1, 4, i+1, xticks=[], yticks=[])
+        if i:
+            img = img[:, :, ::-1]
+        ax.imshow(img)
+        ax.set_xlabel(name, fontweight='bold')
+
+    fig.suptitle(
+        'Localization with Gradient based Class Activation Maps',
+        fontweight='bold', fontsize=16
+    )
+    plt.tight_layout()
+    fig.savefig('outputs/grad_cam.png')
+    plt.show()
+    plt.close()
     
-
-    
-    
-
-
-
-
-
 # To test utilities functions
 if __name__ == "__main__":
     config_file = "configs/configs.yaml"
