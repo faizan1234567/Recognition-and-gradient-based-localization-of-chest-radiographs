@@ -5,6 +5,10 @@ Utils functions
 chest x ray recognition
 Some of the plot utils have been borrowd 
 from: https://github.com/priyavrat-misra/xrays-and-gradcam/blob/master/plot_utils.py
+
+
+python utils.py
+---------------
 """
 import numpy as np
 import matplotlib.pyplot as plt
