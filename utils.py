@@ -34,12 +34,14 @@ def get_all_preds(model, loader):
     model.eval()
     with torch.no_grad():
         all_preds = torch.tensor([], device=device)
+        all_labels = torch.tensor([], device=device)
         for batch in loader:
-            images = batch[0].to(device)
+            images, labels = batch[0].to(device), batch[1].to(device)
             preds = model(images)
             all_preds = torch.cat((all_preds, preds), dim=0)
+            all_labels = torch.cat((all_labels, labels), dim=0)
 
-    return all_preds 
+    return all_preds, all_labels
 
 def get_confmat(targets, preds):
     stacked = torch.stack(
