@@ -63,7 +63,8 @@ def collate_fn(batch):
 def load_dataset(config_file = configs_file,
                  batch_size = None,
                  kind: str = "train",
-                 subset: bool = False):
+                 subset: bool = False,
+                 drop_last: bool = True):
     """
     Load the dataset from the computer in batches, if needed shuffle the
     dataset
@@ -73,6 +74,7 @@ def load_dataset(config_file = configs_file,
     config_file: str
     data_transforms: torchvision.transforms.Compose
     subset: bool
+    drop_last: bool
 
     Return
     ------
@@ -104,7 +106,7 @@ def load_dataset(config_file = configs_file,
                                              batch_size=config["DataLoader"]["batch_size"] if batch_size == None else batch_size, 
                                              sampler = sampler if kind == "train" and subset == False else None,
                                              num_workers=config["DataLoader"]["num_workers"],
-                                             pin_memory = True, drop_last = True,
+                                             pin_memory = True, drop_last = drop_last,
                                              )
     
     return dataset_loader
