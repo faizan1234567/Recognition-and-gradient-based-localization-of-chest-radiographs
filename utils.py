@@ -45,12 +45,12 @@ def get_all_preds(model, loader):
 
 def get_confmat(targets, preds):
     stacked = torch.stack(
-        (torch.as_tensor(targets, device=device),
+        (targets,
          preds.argmax(dim=1)), dim=1
     ).tolist()
     confmat = torch.zeros(4, 4, dtype=torch.int16)
     for t, p in stacked:
-        confmat[t, p] += 1
+        confmat[int(t), int(p)] += 1
 
     return confmat
 
