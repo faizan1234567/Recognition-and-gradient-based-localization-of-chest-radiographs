@@ -2,7 +2,8 @@
 Check model performance on the trained checkpoints 
 on test dataset or validation dataset
 
-
+python test.py -h
+-----------------
 """
 import numpy as np
 import matplotlib.pyplot as plt
@@ -117,7 +118,6 @@ def inference(batch: int = 32,
         mean_recall = recall/len(data_loader)
         mean_f1 = f1_score/len(data_loader)
         accuracy = accuracy/len(data_loader)
-    
     
     if args.manual_table:
         logger.info("Evaluation Results")
