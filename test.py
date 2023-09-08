@@ -118,7 +118,7 @@ def inference(batch: int = 32,
         mean_f1 = f1_score/len(data_loader)
         accuracy = accuracy/len(data_loader)
     
-    manual_table = False
+    
     if args.manual_table:
         logger.info("Evaluation Results")
         logger.info("+-----------------------+---------+")
