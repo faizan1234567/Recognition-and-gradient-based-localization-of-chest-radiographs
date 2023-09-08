@@ -13,4 +13,3 @@ pydantic==1.10.9
 tabulate
 seaborn
 opencv-python
-# -----------
