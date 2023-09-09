@@ -34,21 +34,23 @@ def get_all_preds(model, loader):
     model.eval()
     with torch.no_grad():
         all_preds = torch.tensor([], device=device)
+        all_labels = torch.tensor([], device=device)
         for batch in loader:
-            images = batch[0].to(device)
+            images, labels = batch[0].to(device), batch[1].to(device)
             preds = model(images)
             all_preds = torch.cat((all_preds, preds), dim=0)
+            all_labels = torch.cat((all_labels, labels), dim=0)
 
-    return all_preds 
+    return all_preds, all_labels
 
 def get_confmat(targets, preds):
     stacked = torch.stack(
-        (torch.as_tensor(targets, device=device),
+        (targets,
          preds.argmax(dim=1)), dim=1
     ).tolist()
     confmat = torch.zeros(4, 4, dtype=torch.int16)
     for t, p in stacked:
-        confmat[t, p] += 1
+        confmat[int(t), int(p)] += 1
 
     return confmat
 
@@ -150,7 +152,7 @@ def plot_confmat(train_mat, test_mat, classes, filename):
     ax.set_ylabel('Actual Classes', fontweight='bold')
 
     plt.tight_layout()
-    fig.savefig(f'outputs/confusion_matrices/{filename}')
+    fig.savefig(f'../logs/Runs/{filename}')
     plt.show()
     plt.close()
 
@@ -189,7 +191,7 @@ def plot_gradcam(image, vgg_cam, res_cam, dense_cam):
     plt.show()
     plt.close()
     
-# To test utilities functions
+# run now.
 if __name__ == "__main__":
     config_file = "configs/configs.yaml"
     with open(config_file, 'r') as f:
