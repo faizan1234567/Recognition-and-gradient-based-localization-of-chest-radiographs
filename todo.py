@@ -2,8 +2,9 @@
 Tasks list
 ---------------------------
 TODO:
-- PyTorch GradCAM
-- RESULTS EVALUATION
-- OPTIONAL: README creation
+- PyTorch GradCAM (done)
+- RESULTS EVALUATION (in progress)
+- OPTIONAL: README creation (pending)
 ----------------------------
+
 """
