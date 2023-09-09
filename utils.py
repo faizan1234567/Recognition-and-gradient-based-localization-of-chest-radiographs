@@ -152,7 +152,7 @@ def plot_confmat(train_mat, test_mat, classes, filename):
     ax.set_ylabel('Actual Classes', fontweight='bold')
 
     plt.tight_layout()
-    fig.savefig(f'logs/Runs/{filename}')
+    fig.savefig(f'../logs/Runs/{filename}')
     plt.show()
     plt.close()
 
