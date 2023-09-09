@@ -191,7 +191,7 @@ def plot_gradcam(image, vgg_cam, res_cam, dense_cam):
     plt.show()
     plt.close()
     
-# run now..
+# run now.
 if __name__ == "__main__":
     config_file = "configs/configs.yaml"
     with open(config_file, 'r') as f:
