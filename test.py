@@ -2,7 +2,8 @@
 Check model performance on the trained checkpoints 
 on test dataset or validation dataset
 
-
+python test.py -h
+-----------------
 """
 import numpy as np
 import matplotlib.pyplot as plt
@@ -88,7 +89,7 @@ def inference(batch: int = 32,
     logger.info("Running inference on the specifed dataset.")
     print()
     
-    # always use gpu if available
+    # select accelerator...
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model.to(device)
     model.eval()
@@ -118,7 +119,6 @@ def inference(batch: int = 32,
         mean_f1 = f1_score/len(data_loader)
         accuracy = accuracy/len(data_loader)
     
-    manual_table = False
     if args.manual_table:
         logger.info("Evaluation Results")
         logger.info("+-----------------------+---------+")
