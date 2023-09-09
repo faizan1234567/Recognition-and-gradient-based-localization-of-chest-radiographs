@@ -114,7 +114,6 @@ def calculate_metrics(y_pred, y_true, flag = "all", average = None):
         return accuracy
 
 # train the machine laenring model
-#INFO: The model is overfitting on the training set.
 def train(model,
           optimizer, 
           criterion,
@@ -201,7 +200,7 @@ def train(model,
                 val_corrects = 0
                 precision, recall, f1_score = 0, 0, 0
                 with torch.no_grad():
-                    #BUG: zero division, len(val_loader) ==0, dubgging needed.
+                    #BUG: solved-zero division
                     for (images, labels) in val_loader:
                         images, labels = images.to(device), labels.to(device)
                         val_predictions = model(images)
