@@ -152,7 +152,7 @@ def plot_confmat(train_mat, test_mat, classes, filename):
     ax.set_ylabel('Actual Classes', fontweight='bold')
 
     plt.tight_layout()
-    fig.savefig(f'../logs/Runs/{filename}')
+    fig.savefig(f'../runs/logs/{filename}')
     plt.show()
     plt.close()
 
@@ -206,4 +206,5 @@ if __name__ == "__main__":
     #                     weights=sd)
     # preds = get_all_preds(model, data_loader)
     img = load_img("notebooks/cat.jpg", cfg)
+    path = '../runs/logs/'
     print(img.shape)
