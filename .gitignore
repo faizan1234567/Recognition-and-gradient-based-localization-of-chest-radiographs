@@ -7,6 +7,7 @@ xray_cls/
 .vscode/
 *.txt
 *.log
+*.pub
 "training args.txt"
 mlruns/
 .vscode/
@@ -14,4 +15,5 @@ __pycache__/
 dataset/__pycache__/
 logs/
 weights/
-
+personal_pc
+personal_pc.pub
