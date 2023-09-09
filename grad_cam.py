@@ -32,6 +32,7 @@ class GradCAM:
     def get_weights(self, grads):
         return np.mean(grads, axis= (1, 2))
     
+    # to process an image
     def __call__(self, image, label=None):
         preds = self.model(image)
         self.model.zero_grad()
