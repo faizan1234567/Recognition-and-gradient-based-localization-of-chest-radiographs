@@ -38,12 +38,12 @@ def read_args():
 
 
 if __name__ == "__main__":
-    args = read_args()
+    # args = read_args()
     
     # pretrained checkpoins
     paths = {
-        "vgg16": "/weights/Runs/weights/lr3e-5_vgg16_cuda.pth",
-        "densenet121": "/weights/Runs/weights/lr3e-5_densenet121_cuda.pth",
-        "resnet18": "/weights/Runs/weights/lr3e-5_resnet18_cuda.pth"
+        "vgg16": "weights/Runs/weights/lr3e-5_vgg16_cuda.pth",
+        "densenet121": "weights/Runs/weights/lr3e-5_densenet121_cuda.pth",
+        "resnet18": "weights/Runs/weights/lr3e-5_resnet18_cuda.pth"
     }
-    print(paths)
+    
