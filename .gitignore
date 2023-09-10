@@ -14,6 +14,6 @@ mlruns/
 __pycache__/
 dataset/__pycache__/
 logs/
-weights/
+#weights/
 personal_pc
 personal_pc.pub
