@@ -23,6 +23,7 @@ from pretrained_models import get_model
 from dataset.data import get_transforms
 import pandas as pd
 import cv2
+import argparse
 
 import torch
 
@@ -126,7 +127,7 @@ def plot_results(file):
     ax2.grid(True)
 
     plt.tight_layout()
-    fig.savefig(f'logs/Runs/{filename}.png')
+    fig.savefig(f'runs/logs/{filename}_plot.png')
     plt.show()
     plt.close()
 
@@ -193,10 +194,18 @@ def plot_gradcam(image, vgg_cam, res_cam, dense_cam):
     
 # run now.
 if __name__ == "__main__":
-    config_file = "configs/configs.yaml"
-    with open(config_file, 'r') as f:
-        cfg = yaml.safe_load(f)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--model', type = str, default= "resnet18", 
+                        choices= ["resnet18", "densenet121", "vgg16"], 
+                        help = "name of the model to be used for plotting results..")
+    args = parser.parse_args()
     
+    # ------------------------------------------------------------------------------------------
+    # config_file = "configs/configs.yaml"
+    # with open(config_file, 'r') as f:
+    #     cfg = yaml.safe_load(f)
+    
+    # ------------------------------------------------------------------------------------------
     # data_loader = load_dataset(config_file= cfg, batch_size=32, kind = "test")
     # model_name = "resnet18"
     # model_info = torch.load("logs/lr3e-5_resnet18_cuda.pth", map_location=torch.device("cpu"))
@@ -205,6 +214,14 @@ if __name__ == "__main__":
     #                     num_classes=cfg["DataLoader"]["num_classes"], 
     #                     weights=sd)
     # preds = get_all_preds(model, data_loader)
-    img = load_img("notebooks/cat.jpg", cfg)
-    path = '../runs/logs/'
-    print(img.shape)
+    # -------------------------------------------------------------------------------------------
+    results_dfs = {
+        "densenet121": "weights/Runs/densenet121.csv",
+        "resnet18": "weights/Runs/resnet18.csv",
+        "vgg16": "weights/Runs/vgg16.csv",
+    }
+    model_result_file = results_dfs[args.model]
+    plot_results(model_result_file)
+    print('Done!!')
+
+    
