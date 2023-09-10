@@ -67,8 +67,8 @@ if __name__ == "__main__":
         target_layer = model.features[-1]
     elif args.model == 'resnet18':
         target_layer = model.layer4[-1]
-        
-     # label to index map
+
+     # label to index mapping
     label = {
         'covid_19': 0,
         'lung_opacity': 1,
