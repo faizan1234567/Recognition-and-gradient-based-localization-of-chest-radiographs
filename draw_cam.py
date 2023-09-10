@@ -3,7 +3,7 @@ Overlay Gradcam predictions on xray images
 ------------------------------------------
 
 python draw_cam.py -h
----------------------
+-----------------------
 Author: Muhammad Faizan
 """
 # packages
@@ -75,13 +75,13 @@ if __name__ == "__main__":
         target_layer = model.layer4[-1]
 
      # label to index mapping
-    label = {
+    labels = {
         'covid_19': 0,
         'lung_opacity': 1,
         'normal': 2,
         'pneumonia': 3
     }
-    idx_to_label = {v: k for k, v in label.items()}
+    idx_to_label = {v: k for k, v in labels.items()}
 
     if args.label is not None:
         label = args.label
