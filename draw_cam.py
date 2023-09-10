@@ -34,3 +34,8 @@ def read_args():
     opts = parser.parse_args()
     return opts
 
+
+
+if __name__ == "__main__":
+    args = read_args()
+    print(args)
