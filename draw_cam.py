@@ -11,8 +11,11 @@ import os
 import sys
 import torch
 from pretrained_models import get_model
-from utils import apply_mask
+import utils
+from utils import apply_mask, load_img
 from grad_cam import GradCAM
+import yaml
+import warnings
 
 # some command line arguments
 def read_args():
@@ -32,6 +35,8 @@ def read_args():
                         help= "path to the model checkpoints from the given choice")
     parser.add_argument("-o", "--output", type = str, 
                         help = "output dir path")
+    parser.add_argument('-c', '--config', type = str, 
+                        help = "path to config file")
     opts = parser.parse_args()
     return opts
 
@@ -75,6 +80,33 @@ if __name__ == "__main__":
         'normal': 2,
         'pneumonia': 3
     }
+    idx_to_label = {v: k for k, v in label.items()}
+
+    if args.label is not None:
+        label = args.label
+    else:
+        label = None
+
+    with open(args.config, 'r') as f:
+        cfg = yaml.safe_load(f)
+    
+    # load the image
+    image = load_img(path= path, cfg= cfg)
+    warnings.filterwarnings("ignore", category= UserWarning)
+
+    # use image for gradient based localization
+    grad_cam = GradCAM(model = model, desired_layer= target_layer)
+    label, mask = grad_cam(image, label)
+    print(f'GradCAM created for label "{idx_to_label[label]}".')
+
+    # unnormalize the image
+    image = utils.unnormaliz_img(image)
+    image = apply_mask(image, mask)
+
+    # save the results
+    utils.save_img(image, args.output + "/" + "gradient_localizaton.png")
+
+
 
     
 
