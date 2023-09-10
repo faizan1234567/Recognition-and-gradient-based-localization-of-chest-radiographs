@@ -13,6 +13,7 @@ from pretrained_models import get_model
 from utils import apply_mask
 from grad_cam import GradCAM
 
+# some command line arguments
 def read_args():
     """
     Read command line arguments..
@@ -32,3 +33,4 @@ def read_args():
                         help = "output dir path")
     opts = parser.parse_args()
     return opts
+
