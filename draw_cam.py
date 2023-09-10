@@ -4,6 +4,7 @@ Overlay Gradcam predictions on xray images
 
 python draw_cam.py -h
 ---------------------
+Author: Muhammad Faizan
 """
 # packages
 import argparse
@@ -105,8 +106,6 @@ if __name__ == "__main__":
 
     # save the results
     utils.save_img(image, args.output + "/" + "gradient_localizaton.png")
-
-
 
     
 
