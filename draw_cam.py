@@ -38,7 +38,7 @@ def read_args():
 
 
 if __name__ == "__main__":
-    # args = read_args()
+    args = read_args()
     
     # pretrained checkpoins
     paths = {
