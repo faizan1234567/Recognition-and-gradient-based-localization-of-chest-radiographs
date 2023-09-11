@@ -6,7 +6,6 @@ TODO:
 - RESULTS EVALUATION (done)
 - OPTIONAL: README creation (inprogress)
 - Fix Overfittin issue by literature review and technqniues used to address the overfitting..
-- result evaluation.. 
 ----------------------------------------
 
 """
