@@ -6,7 +6,7 @@ TODO:
 - RESULTS EVALUATION (done)
 - OPTIONAL: README creation (inprogress)
 - Fix Overfittin issue by literature review and technqniues used to address the overfitting..
-   This should be studied and along with implementation of automatic hyperparameters optimizations
+- This should be studied and along with implementation of automatic hyperparameters optimizations
 - CNN diagram completion and learning how to create a cnn diagram.
 ---------------------------------------------------------------------------------------------------
 
