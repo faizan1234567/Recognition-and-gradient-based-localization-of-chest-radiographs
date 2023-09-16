@@ -92,7 +92,7 @@ if __name__ == "__main__":
         cfg = yaml.safe_load(f)
     
     # load the image
-    image = load_img(path = path, cfg= cfg)
+    image = load_img(path = args.image, cfg= cfg)
     warnings.filterwarnings("ignore", category= UserWarning)
 
     # use image for gradient based localization
