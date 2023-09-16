@@ -29,9 +29,9 @@ Chest diseases such as COVID-19, Pneumonia, and other abnormalities are among ub
   4. Hyperparameters used
        - |Hyper-parameters||
          |:-|-:|
-         |Learning rate|`0.00003`|
-         |Batch Size|`32`|
-         |Number of Epochs|`25`|
+         |Learning rate|`3e-5`|
+         |Batch Size|`64`|
+         |Number of Epochs|`10`|
        - |Loss Function|Optimizer|
          |:-:|:-:|
          |`Categorical Cross Entropy`|`Adam`|
