@@ -7,8 +7,8 @@
 - Results
 - Installation
 - Usage
-- Conclusion
 - Todo
+- Conclusion
 - Acknowlegdments
 
 ## Introduction
@@ -42,6 +42,24 @@ This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a tot
  6. [Training](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/train.py)
  7. [Inference](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/test.py)
  8. [Gradient-based Localization](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/draw_cam.py)
+
+ ## Installation
+ ```bash
+ git clone https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs.git
+ cd Recognition-and-gradient-based-localization-of-chest-radiographs
+```
+Create and activate Anaconda Enviroment
+```bash
+conda create -n chest-xray python=3.9.0
+conda activate chest-xray
+```
+Now install all the required dependencies
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+Installation Complete !
+
 
 
 ## Acknowledgements
