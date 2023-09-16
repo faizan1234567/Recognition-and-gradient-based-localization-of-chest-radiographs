@@ -114,10 +114,11 @@ def load_dataset(config_file = configs_file,
 
 if __name__ == "__main__":
     #BUG: fixed 
-    dataset = load_dataset(config_file= configs_file, kind = 'train', subset = True)
+    dataset = load_dataset(config_file= configs_file, kind = 'train', batch_size=1, subset = True)
     print('total images: {}'.format(len(dataset.dataset)))
-    image, labels = next(iter(dataset))
-    print(image.shape, labels.shape)
+    images, labels = next(iter(dataset))
+    images = images.unsqueeze(0) 
+    print(images.shape, labels.shape)
     print(labels)
 
 
