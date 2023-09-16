@@ -16,7 +16,7 @@ Chest diseases such as COVID-19, Pneumonia, and other abnormalities are among ub
 
 ## Project Pipeline
 1. [Dataset Exploration]()
-2. Data Information
+2. Dataset Information
    |Type|COVID-19|Lung Opacity|Normal|Viral Pneumonia|Total|
    |:-|-:|-:|-:|-:|-:|
    |Train|3496|5892|10072|1225|20685|
