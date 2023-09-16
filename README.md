@@ -48,7 +48,7 @@ This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a tot
  git clone https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs.git
  cd Recognition-and-gradient-based-localization-of-chest-radiographs
 ```
-Create and activate Anaconda Enviroment
+Create and activate Anaconda Environment
 ```bash
 conda create -n chest-xray python=3.9.0
 conda activate chest-xray
@@ -59,6 +59,30 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 Installation Complete !
+
+## Usage
+To get play with data loading, run the following script
+```python
+python dataset/data.py 
+```
+To train on your dataset
+```python
+python train.py -h
+python train.py --epochs 100 --learning_rate 3e-5 --batch 32 --save runs/ --workers 8 --model 'resnet18' 
+```
+To run inference on test dataset
+```python
+python test.py -h
+python test.py --batch 32 --weights <path> --model 'resnet18' --classes 4 --kind 'test'
+--subset
+```
+To run Grad-CAM for localizating activations
+```python
+python draw_cam.py -h
+python draw_cam.py --model 'resnet18' --output <path> --connfig configs/configs.yaml --save <path>
+```
+If you face any issue in installation and usage, please create an issue. If you have any ideas for improvments kindly create a PR.
+
 
 
 
