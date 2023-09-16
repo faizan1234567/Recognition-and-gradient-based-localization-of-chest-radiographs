@@ -18,8 +18,8 @@ Chest diseases such as COVID-19, Pneumonia, and other abnormalities are among ub
 This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a total of ```21165``` examples of chest x-ray categorized under ```COVID-19```, ```Pneumonia```, ```Lung Opacity```, and ```Normal```.  Furthermore, some preprocessing transforms have been defined. To get the insight from the data, we used image understanding models such as ```ResNet18``` [3], ```DenseNet121``` [5], and ```VGG16``` [4] trained on ```ImageNet``` [9] Dataset, however, we fine-tunned it on the chest radiographs dataset.   The results will be presented in a section later. Finally, by using Gradient weighted class activation maps (```Grad-CAM```) [10], models high confidence regions have been localized.
 
 ## Project Pipeline
-1. [Dataset Exploration]()
-2. Dataset Information
+1. [Dataset Exploration](https://www.kaggle.com/datasets/tawsifurrahman/covid19-radiography-database)
+2. [Dataset Information](https://www.kaggle.com/datasets/tawsifurrahman/covid19-radiography-database)
    |Type|COVID-19|Lung Opacity|Normal|Viral Pneumonia|Total|
    |:-|-:|-:|-:|-:|-:|
    |Train|3496|5892|10072|1225|20685|
