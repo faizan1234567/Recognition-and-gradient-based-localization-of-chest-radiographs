@@ -17,6 +17,7 @@ from utils import apply_mask, load_img
 from grad_cam import GradCAM
 import yaml
 import warnings
+from dataset.data import load_dataset
 
 # some command line arguments
 def read_args():
@@ -53,9 +54,9 @@ if __name__ == "__main__":
         "densenet121": "weights/Runs/weights/lr3e-5_densenet121_cuda.pth",
         "resnet18": "weights/Runs/weights/lr3e-5_resnet18_cuda.pth"
     }
-    # TODO: use data loader to laod the image with batch 
-    # size of one isntead of focusing on image path which causes issues.
-    
+    #load a single example for inference.
+    data = load_dataset(config_file= args.config, batch_size= args.batch, 
+                        kind = 'test')
     # pick the model 
     path = paths[args.model]
     if not os.path.exists(path):
