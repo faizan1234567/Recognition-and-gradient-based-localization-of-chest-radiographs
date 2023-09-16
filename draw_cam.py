@@ -58,14 +58,12 @@ if __name__ == "__main__":
     data = load_dataset(config_file= args.config, batch_size= 1, 
                         kind = 'test')
     image, label = next(iter(data))
-    # image = image.squeeze(0)
-    # pick the model 
     path = paths[args.model]
     if not os.path.exists(path):
         raise Exception(
             f' {path} not found'
         )
-    
+        
     # load the model 
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     model_info = torch.load(path, map_location= torch.device('cpu') if device == 'cpu' else None)
