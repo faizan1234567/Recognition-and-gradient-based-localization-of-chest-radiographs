@@ -38,6 +38,8 @@ This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a tot
        - |Loss Function|Optimizer|
          |:-:|:-:|
          |`Categorical Cross Entropy`|`Adam`|
+ 5. [inference](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/test.py)
+ 6. [Gradient-based Localization](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/draw_cam.py)
 
 
 ## Acknowledgements
