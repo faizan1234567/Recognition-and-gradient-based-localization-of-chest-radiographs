@@ -28,13 +28,13 @@ Chest diseases such as COVID-19, Pneumonia, and other abnormalities are among ub
   3. [Loading prepretrained models](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/pretrained_models.py#L34)
   4. Hyperparameters used
        - |Hyper-parameters||
->         |:-|-:|
->         |Learning rate|`0.00003`|
->         |Batch Size|`32`|
->         |Number of Epochs|`25`|
->       - |Loss Function|Optimizer|
->         |:-:|:-:|
->         |`Categorical Cross Entropy`|`Adam`|
+         |:-|-:|
+         |Learning rate|`0.00003`|
+         |Batch Size|`32`|
+         |Number of Epochs|`25`|
+       - |Loss Function|Optimizer|
+         |:-:|:-:|
+         |`Categorical Cross Entropy`|`Adam`|
 ## Overview
 This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a total of ```21165``` examples of chest x-ray categorized under ```COVID-19```, ```Pneumonia```, ```Lung Opacity```, and ```Normal```.  Furthermore, some preprocessing transforms have been defined. To get the insight from the data, we used image understanding models such as ```ResNet18``` [3], ```DenseNet121``` [5], and ```VGG16``` [4] trained on ```ImageNet``` [9] Dataset, however, we fine-tunned it on the chest radiographs dataset.   The results will be presented in a section later. Finally, by using Gradient weighted class activation maps (```Grad-CAM```) [10], models high confidence regions have been localized.
 
