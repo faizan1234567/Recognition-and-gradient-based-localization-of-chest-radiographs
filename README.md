@@ -22,7 +22,10 @@ Chest diseases such as COVID-19, Pneumonia, and other abnormalities are among ub
    |Train|3496|5892|10072|1225|20685|
    |Val|60|60|60|60|240|
    |Test|60|60|60|60|240|
-
+3. [Fine-tune ResNet, VGG16, and DenseNet121](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/pretrained_models.py)
+  1. [Dataset Transformations](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/dataset/data.py#L25)
+  2. [Handling imbalanced dataset](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/dataset/data.py#L96)
+  3. [Loading prepretrained models](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/pretrained_models.py#L34)
 ## Overview
 This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a total of ```21165``` examples of chest x-ray categorized under ```COVID-19```, ```Pneumonia```, ```Lung Opacity```, and ```Normal```.  Furthermore, some preprocessing transforms have been defined. To get the insight from the data, we used image understanding models such as ```ResNet18``` [3], ```DenseNet121``` [5], and ```VGG16``` [4] trained on ```ImageNet``` [9] Dataset, however, we fine-tunned it on the chest radiographs dataset.   The results will be presented in a section later. Finally, by using Gradient weighted class activation maps (```Grad-CAM```) [10], models high confidence regions have been localized.
 
