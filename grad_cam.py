@@ -42,7 +42,7 @@ class GradCAM:
 
         preds[:, label].backward()
 
-        featuremaps = self.featuremaps[-1].cpu().data.numpy()[0, :]
+        featuremaps = self.features_map[-1].cpu().data.numpy()[0, :]
         gradients = self.gradients[-1].cpu().data.numpy()[0, :]
 
         weights = self.get_cam_weights(gradients)
