@@ -58,7 +58,7 @@ if __name__ == "__main__":
     data = load_dataset(config_file= args.config, batch_size= 1, 
                         kind = 'test')
     image, label = next(iter(data))
-    image = image.squeeze(0)
+    # image = image.squeeze(0)
     # pick the model 
     path = paths[args.model]
     if not os.path.exists(path):
