@@ -117,8 +117,7 @@ if __name__ == "__main__":
     dataset = load_dataset(config_file= configs_file, kind = 'train', batch_size=1, subset = True)
     print('total images: {}'.format(len(dataset.dataset)))
     images, labels = next(iter(dataset))
-    images = images.unsqueeze(0) 
+    images = images.squeeze(0) 
     print(images.shape, labels.shape)
-    print(labels)
 
 
