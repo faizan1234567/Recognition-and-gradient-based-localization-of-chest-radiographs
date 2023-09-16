@@ -16,7 +16,11 @@ Chest diseases such as COVID-19, Pneumonia, and other abnormalities are among ub
 
 ## Acknowledgements
 [1]. 	H. Su et al., “Multilevel threshold image segmentation for COVID-19 chest radiography: A framework using horizontal and vertical multiverse optimization,” Comput. Biol. Med., vol. 146, no. May, p. 105618, 2022, doi: 10.1016/j.compbiomed.2022.105618.
+
 [2]	I. Sirazitdinov, M. Kholiavchenko, T. Mustafaev, Y. Yixuan, R. Kuleev, and B. Ibragimov, “Deep neural network ensemble for pneumonia localization from a large-scale chest x-ray database,” Comput. Electr. Eng., vol. 78, pp. 388–399, 2019, doi: 10.1016/j.compeleceng.2019.08.004.
+
 [3]	K. He, X. Zhang, S. Ren, and J. Sun, “Deep Residual Learning for Image Recognition,” Dec. 2015, [Online]. Available: http://arxiv.org/abs/1512.03385
+
 [4]	“ K. Simonyan and A. Zisserman. Very deep convolutional networks for large-scale image recognition. In ICLR, 2015.”.
+
 [5]	G. Huang, Z. Liu, L. Van Der Maaten, and K. Q. Weinberger, “Densely connected convolutional networks,” Proc. - 30th IEEE Conf. Comput. Vis. Pattern Recognition, CVPR 2017, vol. 2017-January, pp. 2261–2269, 2017, doi: 10.1109/CVPR.2017.243.
