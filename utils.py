@@ -76,6 +76,7 @@ def get_results(confmat, classes):
 def load_img(path, cfg):
     img = Image.open(path)
     img = get_transforms(cfg, kind = "val")(img).unsqueeze(0)
+    print(img.shape)
     return img
 
 

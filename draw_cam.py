@@ -53,6 +53,8 @@ if __name__ == "__main__":
         "densenet121": "weights/Runs/weights/lr3e-5_densenet121_cuda.pth",
         "resnet18": "weights/Runs/weights/lr3e-5_resnet18_cuda.pth"
     }
+    # TODO: use data loader to laod the image with batch 
+    # size of one isntead of focusing on image path which causes issues.
     
     # pick the model 
     path = paths[args.model]
