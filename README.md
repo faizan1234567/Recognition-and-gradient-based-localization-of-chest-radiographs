@@ -26,7 +26,7 @@ Chest diseases such as COVID-19, Pneumonia, and other abnormalities are among ub
   1. [Dataset Transformations](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/dataset/data.py#L25)
   2. [Handling imbalanced dataset](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/dataset/data.py#L96)
   3. [Loading prepretrained models](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/pretrained_models.py#L34)
-  4. Hyperparameters used
+  4. [Hyperparameters used](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/configs/configs.yaml)
        - |Hyper-parameters||
          |:-|-:|
          |Learning rate|`3e-5`|
