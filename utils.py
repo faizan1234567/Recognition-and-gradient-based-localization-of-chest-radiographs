@@ -90,7 +90,7 @@ def unnormaliz_img(img):
 
 def save_img(image, path):
     image = image[:, :, ::-1]  # RGB -> BGR
-    image = Image.fromarray(image)
+    image = Image.fromarray(image, 'RGB')
     image.save(path)  # saved as RGB
     print(f'GradCAM masked image saved to "{path}".')
 

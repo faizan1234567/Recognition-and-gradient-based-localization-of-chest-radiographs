@@ -20,6 +20,8 @@ import warnings
 import torchvision.transforms as T
 from dataset.data import load_dataset
 import random
+import cv2
+import numpy as np
 
 # some command line arguments
 def read_args():
@@ -64,8 +66,7 @@ if __name__ == "__main__":
     image, label = next(iter(data))
 
     # save the image if needed for comparsion purposes.
-    if args.save:
-        utils.save_img(image, args.output + "/" + "raw_image.png")
+    
 
     path = paths[args.model]
     if not os.path.exists(path):
@@ -113,6 +114,9 @@ if __name__ == "__main__":
 
     # unnormalize the image
     image = utils.unnormaliz_img(image)
+    if args.save:
+        img = cv2.cvtColor(np.uint8(image * 255), cv2.COLOR_BGR2RGB)
+        utils.save_img(img, args.output + "/" + "raw_image.png")
     image = apply_mask(image, mask)
 
     # save the results
