@@ -83,6 +83,17 @@ python draw_cam.py --model 'resnet18' --output <path> --connfig configs/configs.
 ```
 If you face any issue in installation and usage, please create an issue. If you have any ideas for improvments kindly create a PR.
 
+## TODO
+ - Automatic hyperparameters optimization
+ - Multi-GPU training support
+ - Other Gradient based localization techniques integration
+ - Other state-of-the-art models architectures design 
+ - Adding Hydra configurations
+ - Adding Data Version Control
+
+
+## Conclusion
+In this repository, three image understanding models namely ```DenseNet121```, ```ResNet18```, and ```VGG16``` have fine-tuned on the x-ray dataset. Since the dataset is pretty unbalanced, oversampling stretegy helped with imbalanced dataset. In addition to that, ```Grad-CAM``` localization have increased model's interpretablility and chances for improvments. The models have been trained on ```10 epochs``` which are not enough. Based on the results obtained, more data augmentation, better hyperparameters optimization, and model architecutre should be designed for good accuracy. 
 
 
 
@@ -106,4 +117,6 @@ If you face any issue in installation and usage, please create an issue. If you 
 [9]	J. Deng, W. Dong, R. Socher, L.-J. Li, K. Li, and L. Fei-Fei, “ImageNet: A large-scale hierarchical image database,” in 2009 IEEE Conference on Computer Vision and Pattern Recognition, 2009, pp. 248–255. doi: 10.1109/CVPR.2009.5206848.
 
 [10]	R. R. Selvaraju, M. Cogswell, A. Das, R. Vedantam, D. Parikh, and D. Batra, “Grad-CAM: Visual Explanations from Deep Networks via Gradient-Based Localization,” Int. J. Comput. Vis., vol. 128, no. 2, pp. 336–359, 2020, doi: 10.1007/s11263-019-01228-7.
+
+[11] https://github.com/priyavrat-misra/xrays-and-gradcam
 
