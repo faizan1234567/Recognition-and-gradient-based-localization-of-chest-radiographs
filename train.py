@@ -5,6 +5,7 @@ Train on X ray classification task using different models such as
 - ResNet18
 
 to train:
+--------------------
 "python train.py -h"
 
 Author: Muhammad Faizan
@@ -322,7 +323,7 @@ if __name__ == "__main__":
     # training data loader
     training_loader = load_dataset(config_file= cfg, kind="train", subset = args.subset, batch_size = args.batch)
 
-    #valiation data loader
+    # valiation data loader
     validation_loader = load_dataset(config_file= cfg, kind = 'val', subset = args.subset, batch_size = args.val_batch)
     
     # list of training configuration to change when needed.
