@@ -33,7 +33,7 @@ def read_args():
                         choices= ["covid_19", "lung_opacity", "normal", "pnuemonia"],
                         help="pick the label from the given choices if the label is not given")
     parser.add_argument("-m", "--model", type= str, 
-                        choices = ["resnet18", "densenet121", "vgg16"], 
+                        choices = ["resnet18", "densenet121", "vgg16", "all"], 
                         help= "path to the model checkpoints from the given choice")
     parser.add_argument("-o", "--output", type = str, 
                         help = "output dir path")
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     if args.label is not None:
         label = args.label
     else:
-        label = label
+        label = int(label)
 
     with open(args.config, 'r') as f:
         cfg = yaml.safe_load(f)
@@ -109,7 +109,7 @@ if __name__ == "__main__":
     image = apply_mask(image, mask)
 
     # save the results
-    utils.save_img(image, args.output + "/" + "gradient_localizaton.png")
+    utils.save_img(image, args.output + "/" + f"{args.model}_{idx_to_label[label]}_gradient_localizaton.png")
 
     
 
