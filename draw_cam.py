@@ -55,8 +55,9 @@ if __name__ == "__main__":
         "resnet18": "weights/Runs/weights/lr3e-5_resnet18_cuda.pth"
     }
     #load a single example for inference.
-    data = load_dataset(config_file= args.config, batch_size= args.batch, 
+    data = load_dataset(config_file= args.config, batch_size= 1, 
                         kind = 'test')
+    image, label = data[0].squeeze(0)
     # pick the model 
     path = paths[args.model]
     if not os.path.exists(path):
