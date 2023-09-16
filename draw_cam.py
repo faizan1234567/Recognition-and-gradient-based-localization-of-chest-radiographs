@@ -17,7 +17,9 @@ from utils import apply_mask, load_img
 from grad_cam import GradCAM
 import yaml
 import warnings
+import torchvision.transforms as T
 from dataset.data import load_dataset
+import random
 
 # some command line arguments
 def read_args():
@@ -39,6 +41,7 @@ def read_args():
                         help = "output dir path")
     parser.add_argument('-c', '--config', type = str, 
                         help = "path to config file")
+    parser.add_argument('--save', action= 'store_true', help= 'store a raw image')
     opts = parser.parse_args()
     return opts
 
@@ -55,9 +58,15 @@ if __name__ == "__main__":
         "resnet18": "weights/Runs/weights/lr3e-5_resnet18_cuda.pth"
     }
     #load a single example for inference.
+    random.seed(42)
     data = load_dataset(config_file= args.config, batch_size= 1, 
                         kind = 'test')
     image, label = next(iter(data))
+
+    # save the image if needed for comparsion purposes.
+    if args.save:
+        utils.save_img(image, args.output + "/" + "raw_image.png")
+
     path = paths[args.model]
     if not os.path.exists(path):
         raise Exception(

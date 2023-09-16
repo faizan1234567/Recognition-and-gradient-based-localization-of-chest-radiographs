@@ -10,6 +10,7 @@ import sys
 import os
 from pathlib import Path
 import argparse
+import random
 
 #add path to sys.path
 file = Path(__file__).resolve()
@@ -114,7 +115,7 @@ def load_dataset(config_file = configs_file,
 
 if __name__ == "__main__":
     dataset = load_dataset(config_file= configs_file, kind = 'test', batch_size=1, subset = True)
-    print('total images: {}'.format(len(dataset.dataset)))
+    # print('total images: {}'.format(len(dataset.dataset)))
     images, labels = next(iter(dataset))
     images = images.squeeze(0) 
     print(images.shape, labels.shape)
