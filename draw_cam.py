@@ -86,7 +86,7 @@ if __name__ == "__main__":
     if args.label is not None:
         label = args.label
     else:
-        label = labels[args.img.split('/')[-2]]
+        label = labels[args.image.split('/')[-2]]
 
     with open(args.config, 'r') as f:
         cfg = yaml.safe_load(f)
