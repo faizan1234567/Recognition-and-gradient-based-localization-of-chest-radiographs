@@ -40,7 +40,7 @@ This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a tot
          |`Categorical Cross Entropy`|`Adam`|
  5. [Loading dataset](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/dataset/data.py)
  6. [Training](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/train.py)
- 7. [inference](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/test.py)
+ 7. [Inference](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/test.py)
  8. [Gradient-based Localization](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/draw_cam.py)
 
 
