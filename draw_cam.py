@@ -57,7 +57,8 @@ if __name__ == "__main__":
     #load a single example for inference.
     data = load_dataset(config_file= args.config, batch_size= 1, 
                         kind = 'test')
-    image, label = data[0].squeeze(0)
+    image, label = next(iter(data))
+    image = image.squeeze(0)
     # pick the model 
     path = paths[args.model]
     if not os.path.exists(path):
@@ -86,17 +87,16 @@ if __name__ == "__main__":
         'pneumonia': 3
     }
     idx_to_label = {v: k for k, v in labels.items()}
-
+    
     if args.label is not None:
         label = args.label
     else:
-        label = labels[args.image.split('/')[-2]]
+        label = label
 
     with open(args.config, 'r') as f:
         cfg = yaml.safe_load(f)
     
-    # load the image
-    image = load_img(path = args.image, cfg= cfg)
+    # filter warninings
     warnings.filterwarnings("ignore", category= UserWarning)
 
     # use image for gradient based localization
