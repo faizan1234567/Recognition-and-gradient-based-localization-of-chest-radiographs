@@ -45,7 +45,7 @@ class GradCAM:
         featuremaps = self.features_map[-1].cpu().data.numpy()[0, :]
         gradients = self.gradients[-1].cpu().data.numpy()[0, :]
 
-        weights = self.get_cam_weights(gradients)
+        weights = self.get_weights(gradients)
         cam = np.zeros(featuremaps.shape[1:], dtype=np.float32)
 
         for i, w in enumerate(weights):
