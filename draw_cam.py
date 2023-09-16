@@ -86,13 +86,13 @@ if __name__ == "__main__":
     if args.label is not None:
         label = args.label
     else:
-        label = None
+        label = labels[args.img.split('/')[-2]]
 
     with open(args.config, 'r') as f:
         cfg = yaml.safe_load(f)
     
     # load the image
-    image = load_img(path= path, cfg= cfg)
+    image = load_img(path = path, cfg= cfg)
     warnings.filterwarnings("ignore", category= UserWarning)
 
     # use image for gradient based localization
