@@ -188,7 +188,9 @@ If you face any issue in installation and usage, please create an issue. If you 
 ## Conclusion
 In this repository, three image understanding models namely ```DenseNet121```, ```ResNet18```, and ```VGG16``` have fine-tuned on the x-ray dataset. Since the dataset is pretty unbalanced, oversampling stretegy helped with imbalanced dataset. In addition to that, ```Grad-CAM``` localization have increased model's interpretablility and chances for improvments. The models have been trained on ```10 epochs``` which are not enough. Based on the results obtained, more data augmentation, better hyperparameters optimization, and model architecutre should be designed for good accuracy. 
 
+This repository used some features from the great work [11], we are continously updating and adding new features, models, and large database ,so we can build a robust recognizer.
 ***If you find the repository useful, please star the repository.***
+
 
 
 ## Acknowledgements
