@@ -43,6 +43,9 @@ This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a tot
  7. [Inference](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/test.py)
  8. [Gradient-based Localization](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/draw_cam.py)
 
+ ## Results
+ this section is under development.
+
  ## Installation
  ```bash
  git clone https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs.git
