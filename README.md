@@ -124,6 +124,10 @@ This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a tot
 </tr>
 </table>
 
+- __Qualitative results: Localization of model activations on radiographs__
+> |![original](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/runs/raw_image.png)|![vgg_cam](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/runs/vgg16_covid_19_gradient_localizaton.png)|![res_cam](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/runs/resnet18_covid_19_gradient_localizaton.png)|![dense_cam](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/runs/densenet121_covid_19_gradient_localizaton.png)|
+> |:-:|:-:|:-:|:-:|
+> |<sup>_COVID-19 infected CXR_</sup>|<sup>_VGG-16_</sup>|<sup>_ResNet-18_</sup>|<sup>_DenseNet-121_</sup>|
 
  ## Installation
  ```bash
