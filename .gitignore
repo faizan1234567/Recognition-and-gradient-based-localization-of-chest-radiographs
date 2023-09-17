@@ -13,7 +13,7 @@ mlruns/
 .vscode/
 __pycache__/
 dataset/__pycache__/
-logs/
+# logs/
 #weights/
 personal_pc
 personal_pc.pub
