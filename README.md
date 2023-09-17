@@ -50,7 +50,6 @@ This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a tot
    |VGG-16|![vgg_plot](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/runs/logs/vgg16_plot.png)|
    |ResNet-18|![res_plot](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/runs/logs/resnet18_plot.png)|
    |DenseNet-121|![dense_plot](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/runs/logs/densenet121_plot.png)|
-2. [Other metrics]()
 
 <table>
 <tr>
