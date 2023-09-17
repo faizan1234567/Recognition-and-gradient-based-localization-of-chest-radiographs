@@ -101,7 +101,6 @@ This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a tot
 </td>
 </tr>
 <tr>
-<td>
 
 <!-- 3. Confusion Matrices -->
 
