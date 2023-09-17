@@ -105,6 +105,39 @@ This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a tot
   <tr>
   <td>
 
+|TL;DR|
+|:-|
+|Train set|
+|Test set|
+
+</td>
+<td>
+
+|Total Correct Predictions|Total Accuracy|
+|-:|-:|
+|20362|98.44%|
+|229|__95.42%__|
+
+</td>
+<td>
+
+|Total Correct Predictions|Total Accuracy|
+|-:|-:|
+|20639|99.78%|
+|230|__95.83%__|
+
+</td>
+<td>
+
+|Total Correct Predictions|Total Accuracy|
+|-:|-:|
+|20540|99.30%|
+|230|__95.83%__|
+
+</td>
+</tr>
+<tr>
+
   <td>Confusion Matrices</td>
 <td>
 
