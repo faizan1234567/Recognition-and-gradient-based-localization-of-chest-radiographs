@@ -44,7 +44,8 @@ This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a tot
  8. [Gradient-based Localization](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/draw_cam.py)
 
  ## Results
- this section is under development.
+ 1. [Plotting running losses and accuracies](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/utils.py#L97)
+ 
 
  ## Installation
  ```bash
