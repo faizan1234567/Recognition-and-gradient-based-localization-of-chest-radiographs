@@ -50,6 +50,61 @@ This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a tot
    |VGG-16|![vgg_plot](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/runs/logs/vgg16_plot.png)|
    |ResNet-18|![res_plot](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/runs/logs/resnet18_plot.png)|
    |DenseNet-121|![dense_plot](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/runs/logs/densenet121_plot.png)|
+2. [Other metrics]()
+   <table>
+<tr>
+<th></th>
+<th>VGG-16</th>
+<th>ResNet-18</th>
+<th>DenseNet-121</th>
+</tr>
+<tr>
+<td>
+
+|__Pathology__|
+|:-|
+|COVID-19|
+|Lung Opacity|
+|Normal|
+|Viral Pneumonia|
+
+</td>
+<td>
+
+|Accuracy|Precision|Recall|F1-Score|
+|-:|-:|-:|-:|
+|0.978|0.983|0.936|0.959|
+|0.953|0.85|0.962|0.902|
+|0.953|0.933|0.888|0.910|
+|0.995|1.0|0.983|0.991|
+            
+</td>
+<td>
+
+|Accuracy|Precision|Recall|F1-Score|
+|-:|-:|-:|-:|
+|0.9871|0.9667|0.9830|0.9748|
+|0.9664|0.8667|1.0000|0.9286|
+|0.9664|1.0000|0.8823|0.9375|
+|0.9957|1.0000|0.9836|0.9917|
+            
+</td>
+<td>
+
+|Accuracy|Precision|Recall|F1-Score|
+|-:|-:|-:|-:|
+|0.9957|0.9833|1.0000|0.9916|
+|0.9623|0.9167|0.9322|0.9244|
+|0.9623|0.9500|0.9047|0.9268|
+|0.9957|0.9833|1.0000|0.9916|
+            
+</td>
+</tr>
+<tr>
+<td>
+
+3. Confusion Matrices
+
 
  ## Installation
  ```bash
