@@ -51,6 +51,7 @@ This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a tot
    |ResNet-18|![res_plot](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/runs/logs/resnet18_plot.png)|
    |DenseNet-121|![dense_plot](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/runs/logs/densenet121_plot.png)|
 2. [Other metrics]()
+
 <table>
 <tr>
 <th></th>
@@ -73,10 +74,10 @@ This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a tot
 
 |Accuracy|Precision|Recall|F1-Score|
 |-:|-:|-:|-:|
-|0.978|0.983|0.936|0.959|
-|0.953|0.85|0.962|0.902|
-|0.953|0.933|0.888|0.910|
-|0.995|1.0|0.983|0.991|
+|0.978 |0.983 |0.936 |0.959 |
+|0.953 |0.85  |0.962 |0.902 |
+|0.953 |0.933 |0.888 |0.910 |
+|0.995 |1.0   |0.983 |0.991 |
             
 </td>
 <td>
@@ -101,6 +102,7 @@ This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a tot
 </td>
 </tr>
 <tr>
+<td>
 
 <!-- 3. Confusion Matrices -->
 
