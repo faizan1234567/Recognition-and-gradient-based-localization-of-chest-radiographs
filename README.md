@@ -102,7 +102,27 @@ This repository uses chest radiograph dataset from Kaggle [7], [8]. It has a tot
               
   </td>
   </tr>
-  </table>
+  <tr>
+  <td>
+
+  <td>Confusion Matrices</td>
+<td>
+
+![vgg_confmat](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/runs/logs/vgg.png)
+
+</td>
+<td>
+
+![res_confmat](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/runs/logs/resnet.png)
+
+</td>
+<td>
+
+![dense_confmat](https://github.com/faizan1234567/Recognition-and-gradient-based-localization-of-chest-radiographs/blob/master/runs/logs/densenet.png)
+
+</td>
+</tr>
+</table>
 
 
  ## Installation
