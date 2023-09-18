@@ -114,7 +114,7 @@ def calculate_metrics(y_pred, y_true, flag = "all", average = None):
         accuracy = accuracy_score(y_true, y_pred)
         return accuracy
 
-# train the machine laenring model
+# train model
 def train(model,
           optimizer, 
           criterion,
