@@ -1,7 +1,7 @@
 """
 Train on X ray classification task using different models such as 
 - VGG16
-- EfficientNet
+- DenseNet121
 - ResNet18
 
 to train:
