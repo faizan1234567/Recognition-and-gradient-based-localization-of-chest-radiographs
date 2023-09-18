@@ -200,22 +200,6 @@ if __name__ == "__main__":
                         choices= ["resnet18", "densenet121", "vgg16"], 
                         help = "name of the model to be used for plotting results..")
     args = parser.parse_args()
-    
-    # ------------------------------------------------------------------------------------------
-    # config_file = "configs/configs.yaml"
-    # with open(config_file, 'r') as f:
-    #     cfg = yaml.safe_load(f)
-    
-    # ------------------------------------------------------------------------------------------
-    # data_loader = load_dataset(config_file= cfg, batch_size=32, kind = "test")
-    # model_name = "resnet18"
-    # model_info = torch.load("logs/lr3e-5_resnet18_cuda.pth", map_location=torch.device("cpu"))
-    # sd = model_info["model_state_dict"]
-    # model = get_model(model_name, pretrained = False,
-    #                     num_classes=cfg["DataLoader"]["num_classes"], 
-    #                     weights=sd)
-    # preds = get_all_preds(model, data_loader)
-    # -------------------------------------------------------------------------------------------
     results_dfs = {
         "densenet121": "weights/Runs/densenet121.csv",
         "resnet18": "weights/Runs/resnet18.csv",
