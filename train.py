@@ -62,7 +62,7 @@ stream_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 logger.addHandler(stream_handler)
 
-# get command line arguments
+# get command line args parsing
 def read_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--epochs", type = int, default= 100, help = "number of iterations")
