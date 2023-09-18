@@ -146,7 +146,7 @@ def train(model,
             for dir in dirs:
                 os.makedirs(dir)
     
-    #log training information
+    # log training information
     device = "cuda" if torch.cuda.is_available() else "cpu"
     logger.info("Learning rate: {}, batch size: {}, epochs: {}, device: {}".format(args.learning_rate, args.batch, 
                                           args.epochs, device))
