@@ -193,20 +193,4 @@ def plot_gradcam(image, vgg_cam, res_cam, dense_cam):
     plt.show()
     plt.close()
     
-# run now.
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--model', type = str, default= "resnet18", 
-                        choices= ["resnet18", "densenet121", "vgg16"], 
-                        help = "name of the model to be used for plotting results..")
-    args = parser.parse_args()
-    results_dfs = {
-        "densenet121": "weights/Runs/densenet121.csv",
-        "resnet18": "weights/Runs/resnet18.csv",
-        "vgg16": "weights/Runs/vgg16.csv",
-    }
-    model_result_file = results_dfs[args.model]
-    plot_results(model_result_file)
-    print('Done!!')
-
     
