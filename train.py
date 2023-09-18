@@ -244,7 +244,7 @@ def train(model,
         csv_writer.writerow(cols)
         csv_writer.writerows(rows)
 
-# run ..
+
 if __name__ == "__main__":
     logger.info("Initializing..")
     # start mlflow tracking 
