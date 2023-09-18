@@ -249,7 +249,6 @@ if __name__ == "__main__":
     logger.info("Initializing..")
     # start mlflow tracking 
     mlflow.start_run()
-    # open settings from a config file
     val_every = 1
 
     with open(config_file, 'r') as file:
@@ -326,7 +325,6 @@ if __name__ == "__main__":
     validation_loader = load_dataset(config_file= cfg, kind = 'val', subset = args.subset, batch_size = args.val_batch)
     
     # list of training configuration to change when needed.
-
     all_params = {"lr": lr,
                   "workers": workers,
                   "batch": args.batch if args.batch else None,
