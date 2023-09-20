@@ -55,6 +55,7 @@ def get_confmat(targets, preds):
 
     return confmat
 
+# get different results such as acc, precision, recall, and f1score
 def get_results(confmat, classes):
     results = {}
     d = confmat.diagonal()
