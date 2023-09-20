@@ -49,7 +49,7 @@ def read_args():
     opt = parser.parse_args()
     return opt
 
-
+# run inference on the batches of images for testing.
 def inference(batch: int = 32, 
               weights: str = "", 
               model: str = "resnet18",
