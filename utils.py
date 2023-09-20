@@ -79,7 +79,7 @@ def load_img(path, cfg):
     print(img.shape)
     return img
 
-
+# unnormalize the image (reconstruct the orgin image)
 def unnormaliz_img(img):
     image = img.cpu().numpy()
     image = np.squeeze(np.transpose(image[0], (1, 2, 0)))
@@ -169,7 +169,7 @@ def apply_mask(image, mask):
     cam = cam / np.max(cam)
     return np.uint8(255 * cam)
 
-# plot grad-cam on the image
+# plot grad-cam on the image using a given models
 def plot_gradcam(image, vgg_cam, res_cam, dense_cam):
     image = unnormaliz_img(image)
     name_dict = {
