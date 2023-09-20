@@ -35,6 +35,7 @@ stream_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 logger.addHandler(stream_handler)
 
+# get command line args.
 def read_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--batch", type = int, default=32, help= "test loader batch size")
