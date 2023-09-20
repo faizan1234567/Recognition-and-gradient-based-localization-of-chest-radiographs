@@ -169,7 +169,7 @@ def apply_mask(image, mask):
     cam = cam / np.max(cam)
     return np.uint8(255 * cam)
 
-
+# plot grad-cam on the image
 def plot_gradcam(image, vgg_cam, res_cam, dense_cam):
     image = unnormaliz_img(image)
     name_dict = {
