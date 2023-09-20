@@ -88,6 +88,7 @@ def unnormaliz_img(img):
     image = image.clip(0, 1)
     return image
 
+# save the image
 def save_img(image, path):
     image = image[:, :, ::-1]  # RGB -> BGR
     image = Image.fromarray(image, 'RGB')
