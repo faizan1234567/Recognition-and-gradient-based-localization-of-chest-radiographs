@@ -44,6 +44,7 @@ def get_all_preds(model, loader):
 
     return all_preds, all_labels
 
+# get the consufion matrix form ground truth and model's prediciotns
 def get_confmat(targets, preds):
     stacked = torch.stack(
         (targets,
