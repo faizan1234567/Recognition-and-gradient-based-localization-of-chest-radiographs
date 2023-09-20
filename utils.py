@@ -134,6 +134,7 @@ def plot_results(file):
     plt.show()
     plt.close()
 
+# plot confusion matrices
 def plot_confmat(train_mat, test_mat, classes, filename):
     train_mat = pd.DataFrame(train_mat.numpy(), index=classes, columns=classes)
     test_mat = pd.DataFrame(test_mat.numpy(), index=classes, columns=classes)
