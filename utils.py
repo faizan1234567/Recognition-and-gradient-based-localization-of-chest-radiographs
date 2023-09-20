@@ -161,6 +161,7 @@ def plot_confmat(train_mat, test_mat, classes, filename):
     plt.show()
     plt.close()
 
+# mask generation
 def apply_mask(image, mask):
     heatmap = cv2.applyColorMap(np.uint8(255 * mask), cv2.COLORMAP_JET)
     heatmap = np.float32(heatmap) / 255
