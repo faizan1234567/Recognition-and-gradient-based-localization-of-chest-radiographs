@@ -95,6 +95,7 @@ def save_img(image, path):
     image.save(path)  # saved as RGB
     print(f'GradCAM masked image saved to "{path}".')
 
+# plot results such accuracies and losses
 def plot_results(file):
     data = pd.read_csv(file)
     filename = file.split("/")[-1][:-4]
