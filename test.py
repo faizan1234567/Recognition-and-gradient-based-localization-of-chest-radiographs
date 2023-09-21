@@ -35,7 +35,7 @@ stream_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 logger.addHandler(stream_handler)
 
-# get command line args.
+# get command line
 def read_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--batch", type = int, default=32, help= "test loader batch size")
@@ -94,7 +94,7 @@ def inference(batch: int = 32,
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model.to(device)
     model.eval()
-    # run inference on the dataset.
+
     val_corrects = 0
     loader = tqdm(data_loader)
     precision, recall, f1_score, accuracy= 0, 0, 0, 0
