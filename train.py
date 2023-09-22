@@ -247,7 +247,7 @@ def train(model,
 
 if __name__ == "__main__":
     logger.info("Initializing..")
-    # start mlflow tracking 
+    # start mlflow tracking and logging.
     mlflow.start_run()
     val_every = 1
 
