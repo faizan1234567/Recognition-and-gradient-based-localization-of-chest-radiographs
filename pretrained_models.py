@@ -4,6 +4,7 @@ import torch.nn as nn
 import numpy as np
 from torchvision.models import resnet18, densenet121, vgg16
 
+# build the specified model.
 def create_model(architecture, num_classes = 4, pretrained = True, custom_weights=None):
     """
     create a pretrained model.
