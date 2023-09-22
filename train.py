@@ -194,7 +194,7 @@ def train(model,
             log_metric("Training_accuracy", train_acc)
             log_metric("Training_loss", train_loss)
 
-            # validate the model
+            # validation phase
             if epoch % val_every == 0:
                 model.eval()
                 val_loss = 0
