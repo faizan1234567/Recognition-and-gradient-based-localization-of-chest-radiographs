@@ -65,7 +65,7 @@ def get_results(confmat, classes):
         tn = d.sum().item() - tp
         fp = confmat[i].sum().item() - tp
         fn = confmat[:, i].sum().item() - tp
-
+        # all of the metrics, accuracy, prcsion, recall, and f1score
         accuracy = (tp+tn)/(tp+tn+fp+fn)
         recall = tp/(tp+fn)
         precision = tp/(tp+fp)
