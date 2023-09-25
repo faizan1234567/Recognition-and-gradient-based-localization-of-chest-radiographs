@@ -26,7 +26,7 @@ import numpy as np
 # some command line arguments
 def read_args():
     """
-    Read command line arguments..
+    Read command line arguments.
     ----------------------------
 
     """
