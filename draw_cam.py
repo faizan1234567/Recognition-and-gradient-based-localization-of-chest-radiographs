@@ -6,7 +6,7 @@ python draw_cam.py -h
 -----------------------
 Author: Muhammad Faizan
 """
-# packages
+
 import argparse
 import os
 import sys
