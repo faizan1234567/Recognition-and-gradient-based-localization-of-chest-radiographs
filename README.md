@@ -151,7 +151,7 @@ Now install all the required dependencies
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
-Installation Complete !
+Installation done !
 
 ## Usage
 To get play with data loading, run the following script
