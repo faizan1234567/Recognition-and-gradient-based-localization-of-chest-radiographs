@@ -214,5 +214,6 @@ This repository used some features from the great work [11], we are continously 
 
 [10]	R. R. Selvaraju, M. Cogswell, A. Das, R. Vedantam, D. Parikh, and D. Batra, “Grad-CAM: Visual Explanations from Deep Networks via Gradient-Based Localization,” Int. J. Comput. Vis., vol. 128, no. 2, pp. 336–359, 2020, doi: 10.1007/s11263-019-01228-7.
 
-[11] https://github.com/priyavrat-misra/xrays-and-gradcam
+[11]    https://github.com/priyavrat-misra/xrays-and-gradcam
 
+[12].   Wikipedia deep leanring
