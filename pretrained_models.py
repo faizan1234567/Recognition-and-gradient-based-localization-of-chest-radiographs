@@ -7,7 +7,7 @@ from torchvision.models import resnet18, densenet121, vgg16
 # build the specified model.
 def create_model(architecture, num_classes = 4, pretrained = True, custom_weights=None):
     """
-    create a pretrained model.
+    create a pretrained model to use trained weights on imagenet 1000 classes dataset.
     
     Parameters
     ----------
