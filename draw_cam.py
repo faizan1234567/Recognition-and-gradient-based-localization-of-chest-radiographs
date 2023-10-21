@@ -6,7 +6,7 @@ python draw_cam.py -h
 -----------------------
 Author: Muhammad Faizan
 """
-# packages
+
 import argparse
 import os
 import sys
@@ -26,7 +26,7 @@ import numpy as np
 # some command line arguments
 def read_args():
     """
-    Read command line arguments..
+    Read command line arguments from the user
     ----------------------------
 
     """

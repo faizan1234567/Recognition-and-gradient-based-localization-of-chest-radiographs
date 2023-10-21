@@ -35,7 +35,7 @@ stream_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 logger.addHandler(stream_handler)
 
-# get command line
+
 def read_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--batch", type = int, default=32, help= "test loader batch size")
@@ -120,6 +120,7 @@ def inference(batch: int = 32,
         mean_f1 = f1_score/len(data_loader)
         accuracy = accuracy/len(data_loader)
     
+    # print table 
     if args.manual_table:
         logger.info("Evaluation Results")
         logger.info("+-----------------------+---------+")
