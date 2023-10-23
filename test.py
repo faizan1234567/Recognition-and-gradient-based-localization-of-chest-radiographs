@@ -90,7 +90,7 @@ def inference(batch: int = 32,
     logger.info("Running inference on the specifed dataset.")
     print()
     
-    # select device type
+    # select  hardware acceleration device
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model.to(device)
     model.eval()
