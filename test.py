@@ -1,9 +1,11 @@
+
+
 """
 Check model performance on the trained checkpoints 
 on test dataset or validation dataset
 
-python test.py -h
------------------
+python test.py -h for more information
+--------------------------------------
 """
 import numpy as np
 import matplotlib.pyplot as plt
